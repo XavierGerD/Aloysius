@@ -1,0 +1,18 @@
+.skilltree {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  margin-left: 300px;
+}
+
+.spacer {
+  height: 30px;
+}
+
+.level {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
