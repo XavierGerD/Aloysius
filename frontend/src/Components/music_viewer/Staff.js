@@ -1,11 +1,14 @@
 import React from "react";
-import { staffSegment } from "./UnicodeAssignment.js";
+import StaffLines from "./StaffLines.js";
 import "./Staff.css";
 
-let Staff = () => {
+let Staff = props => {
   return (
-    <div className="systemStaff">
-      {staffSegment}
+    <div className="system">
+      <div className="staff">{<StaffLines />}</div>
+      <div className="symbols">
+        <div className="barContainer">{props.bars}</div>
+      </div>
     </div>
   );
 };

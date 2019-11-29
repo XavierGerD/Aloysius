@@ -9,16 +9,17 @@ import {
   F_MAJOR,
   Bb_MAJOR
 } from "./KeySignature.js";
+import AppText from "./AppText.js";
 
-class UnconnectedViewer extends Component {
+class Viewer extends Component {
   state = {
     title: "Song Without Words",
     fontSize: 60,
-    maxBars: 4,
+    maxBarsPerSystem: 4,
     clef: "treble",
-    keySignature: D_MAJOR,
-    timeSignature: ["four", "four"],
-    text: this.props.lesson,
+    keySignature: this.props.lesson.keySignature,
+    timeSignature: this.props.lesson.timeSignature,
+    scoreContents: this.props.lesson.notes,
     fontInput: "60",
     stavesInput: ""
   };
@@ -53,13 +54,12 @@ class UnconnectedViewer extends Component {
   };
 
   render = () => {
+    console.log("props.lesson", this.props.lesson);
     return (
       <div className="viewerContainer">
-        <div className="scoreTitle">
-          {this.state.title}
-        </div>
+        <div className="scoreTitle">{this.state.title}</div>
         <div className="score">
-          <Page state={this.state} />
+          <Page {...this.state} />
         </div>
         <div>
           <form onSubmit={this.changeFont}>
@@ -79,13 +79,5 @@ class UnconnectedViewer extends Component {
     );
   };
 }
-
-let mapStateToProps = state => {
-  return {
-    lesson: state.currentBlock
-  };
-};
-
-let Viewer = connect(mapStateToProps)(UnconnectedViewer);
 
 export default Viewer;

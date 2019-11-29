@@ -1,10 +1,12 @@
 import React from "react";
+import { uuid } from "uuidv4";
 import { barlines, restCodes } from "./UnicodeAssignment.js";
 import { allowDrop, drop } from "./dragAndDrop.js";
 import Note from "./Note.js";
 import "./Bar.css";
 
-let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
+let Bar = props => {
+  let { hand, clef, length, index, instrument, i } = props;
   let barLineType;
   if (index < length - 1) {
     barLineType = barlines.singleBarline;
@@ -34,7 +36,8 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
   return (
     <React.Fragment>
       <div className="bar">
-        {" "}{arr.map(char => {
+        {" "}
+        {hand.map(char => {
           let style;
           if (char.type === "note") {
             if (beatCounter === 0) {
@@ -44,32 +47,52 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
             switch (char.code) {
               case "sixteenth":
                 beat.push(
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                   </div>
                 );
                 beatCounter += 1;
                 break;
               case "eighth":
                 beat.push(
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                   </div>
                 );
                 beatCounter += 2;
                 break;
               case "half":
                 return (
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                     <div className="empty" />
                   </div>
                 );
 
               case "whole":
                 return (
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                     <div className="empty" />
                     <div className="empty" />
                     <div className="empty" />
@@ -77,8 +100,13 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
                 );
               default:
                 return (
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                   </div>
                 );
             }
@@ -86,25 +114,38 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
             if (beatCounter >= 4) {
               beatCounter = 0;
               return (
-                <div className="note">
+                <div key={uuid()} className="note">
                   {beat}
                 </div>
               );
             } else return;
           }
           if (char.type === "rest") {
-            style = { marginTop: state.fontSize / -2 + "px" };
+            style = {
+              height: props.fontSize,
+              width: props.fontSize / 3,
+              marginTop: props.fontSize / -1 + "px",
+              paddingTop: props.fontSize / 2
+            };
+
             return (
-              <div className="note" style={style}>
-                <div className="noteHead">
+              <div key={uuid()} className="note">
+                <div className="noteHead" style={style}>
                   {restCodes[char.code]}
                 </div>
               </div>
             );
           }
           if (char.type === "missing") {
-            style = { marginTop: state.fontSize / 8 * 7 + "px" };
-            return <div onDrop={event => drop(event)} onDragOver={event => allowDrop(event)} className="missingNote" style={style} />;
+            style = { marginTop: (props.fontSize / 8) * 7 + "px" };
+            return (
+              <div
+                onDrop={event => drop(event)}
+                onDragOver={event => allowDrop(event)}
+                className="missingNote"
+                style={style}
+              />
+            );
           }
 
           return (
@@ -114,9 +155,7 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
           );
         })}
       </div>
-      <div className="barLineText">
-        {barLineType}
-      </div>
+      <div className="barLineText">{barLineType}</div>
     </React.Fragment>
   );
 };

@@ -1,8 +1,10 @@
 import React from "react";
+import { uuid } from "uuidv4";
+
 import Bar from "./Bar.js";
 import Clef from "./Clef.js";
 import TimeSignature from "./TimeSignature.js";
-import System from "./System.js";
+import Staff from "./Staff.js";
 import { barlines } from "./UnicodeAssignment.js";
 import { KeySignature } from "./KeySignature.js";
 import "./Page.css";
@@ -22,58 +24,81 @@ let determineClef = (hand, instrument) => {
 };
 
 let Page = props => {
-  let staves = [];
-  let bars = [];
-  let ret = [];
-  let notes = props.state.text.notes;
-  let instrument = props.state.text.instrument;
+  let renderedSystem = [];
+  let system = [];
+  let renderedScore = [];
+  let score = props.scoreContents.notes;
+  let instrument = props.scoreContents.instrument;
   let staffConfig = (index, hand) => {
     let clef = determineClef(hand, instrument);
 
     return (
-      <div className="staffConfig">
+      <div key={uuid()} className="staffConfig">
         <div className="barLineText">
-          {instrument === "piano" && clef === "treble" ? <div className="startBarLineDiv" /> : null}
+          {instrument === "piano" && clef === "treble" ? (
+            <div className="startBarLineDiv" />
+          ) : null}
           {/* {instrument === "piano" && clef === "treble" ? <div className="startBarLineDiv" /> : null} {} */}
         </div>
-        {<Clef clef={clef} fontSize={props.state.fontSize} />}
-        {<KeySignature signature={props.state.keySignature} clef={clef} fontSize={props.state.fontSize} />}
-        {index === 0 ? <TimeSignature signature={props.state.timeSignature} /> : null}
+        {<Clef clef={clef} fontSize={props.fontSize} />}
+        {
+          <KeySignature
+            signature={props.keySignature}
+            clef={clef}
+            fontSize={props.fontSize}
+          />
+        }
+        {index === 0 ? <TimeSignature signature={props.timeSignature} /> : null}
       </div>
     );
   };
 
-  notes[0].forEach(() => {
-    bars.push([]);
+  console.log("SCORE:", score);
+  score[0].forEach(() => {
+    system.push([]);
   });
 
-  notes.forEach((barArray, j) => {
-    barArray.forEach((arr, i) => {
+  score.forEach((bar, j) => {
+    bar.forEach((hand, i) => {
       let clef = determineClef(i, instrument);
 
-      if (j === 0 || (bars[i].length === 0 && j > 0)) {
-        bars[i].push(staffConfig(j, i));
+      if (j === 0 || (system[i].length === 0 && j > 0)) {
+        system[i].push(staffConfig(j, i));
       }
-      bars[i].push(<Bar arr={barArray[i]} clef={clef} length={notes.length} index={j} state={props.state} instrument={instrument} i={i} />);
-      if (bars[i].length === props.state.maxBars) {
-        staves.push(<System bars={bars[i]} />);
-        bars[i] = [];
+      system[i].push(
+        <Bar
+          key={uuid()}
+          {...props}
+          hand={bar[i]}
+          clef={clef}
+          length={score.length}
+          index={j}
+          instrument={instrument}
+          i={i}
+        />
+      );
+
+      // have we filled a system?
+      if (system[i].length === props.maxBarsPerSystem) {
+        renderedSystem.push(<Staff key={uuid()} bars={system[i]} />);
+        system[i] = [];
       }
-      if (j === notes.length - 1 && bars[i].length !== 0) {
-        staves.push(<System bars={bars[i]} />);
+
+      if (j === score.length - 1 && system[i].length !== 0) {
+        renderedSystem.push(<Staff key={uuid()} bars={system[i]} />);
       }
-      if (staves.length === notes[0].length) {
-        ret.push(
-          <div className="systemBox">
-            {staves}
+      if (renderedSystem.length === score[0].length) {
+        renderedScore.push(
+          <div key={uuid()} className="systemBox">
+            {renderedSystem}
           </div>
         );
-        staves = [];
+        renderedSystem = [];
       }
     });
   });
-
-  return ret;
+  console.log("RETURNED SCORE:", renderedScore);
+  return renderedScore;
 };
 
 export default Page;

@@ -1,6 +1,11 @@
 import React from "react";
+import { uuid } from "uuidv4";
 import "./KeySignature.css";
-import { accidentalCodes, clefCodes } from "./UnicodeAssignment.js";
+import {
+  accidentalCodes,
+  clefCodes,
+  keySignaturesCodes
+} from "./UnicodeAssignment.js";
 
 const G_MAJOR = {
   type: "sharp",
@@ -28,10 +33,20 @@ const Bb_MAJOR = {
   size: 2
 };
 
-let sharpKeysignaturePositions = [-1, -0.625, -1.125, -0.75, -0.475, -0.875, -0.5];
+let sharpKeysignaturePositions = [
+  -1,
+  -0.625,
+  -1.125,
+  -0.75,
+  -0.475,
+  -0.875,
+  -0.5
+];
 let flatKeysignaturePositions = [-0.5, -0.875, -0.475, -0.75, -1.125, -1];
 
 let KeySignature = ({ signature, clef, fontSize }) => {
+  signature = keySignaturesCodes[signature];
+  console.log("sig", typeof signature);
   let ret = [];
   let accidental;
   let offset = clefCodes[clef].noteOffset;
@@ -41,16 +56,18 @@ let KeySignature = ({ signature, clef, fontSize }) => {
     accidental = flatKeysignaturePositions;
   }
   for (let i = 0; i < signature.size; i++) {
-    let style = { marginTop: accidental[i] * fontSize + parseFloat(offset) * fontSize };
+    let style = {
+      marginTop: accidental[i] * fontSize + parseFloat(offset) * fontSize
+    };
     ret.push(
-      <div className="keySignatureText" style={style}>
+      <div key={uuid()} className="keySignatureText" style={style}>
         {accidentalCodes[signature.type]}
       </div>
     );
   }
 
   return (
-    <div className="keySignature">
+    <div key={uuid()} className="keySignature">
       {ret}
     </div>
   );

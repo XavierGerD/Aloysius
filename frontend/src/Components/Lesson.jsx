@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { uuid } from "uuidv4";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./lesson.css";
@@ -44,22 +45,19 @@ class UnconnectedLesson extends Component {
     }
     return (
       <div>
-        {this.props.lesson.map(chunk => {
-          if (chunk.heading !== "") {
+        {this.props.lesson.map((chunk, i) => {
+          console.log("chunk", chunk.heading);
+          if (chunk.heading !== "score") {
             return (
-              <div>
+              <div key={uuid()}>
                 <div className="lessonHeader">
-                  <h1>
-                    {chunk.heading}
-                  </h1>
+                  <h1>{chunk.heading}</h1>
                 </div>
-                <div className="lessonBody">
-                  {chunk.text}
-                </div>
+                <div className="lessonBody">{chunk.text}</div>
               </div>
             );
-          } else {
-            return <Viewer />;
+          } else if (chunk.heading === "score") {
+            return <Viewer key={uuid()} lesson={JSON.parse(chunk.text)} />;
           }
         })}
         <Link

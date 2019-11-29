@@ -1,10 +1,15 @@
-.systemStaff {
-  font-size: var(--music-font-size);
-  font-family: "Bravura";
-  transform-origin: top left;
-  -webkit-transform: scaleX(var(--transform-size)); /* Safari and Chrome */
-  -moz-transform: scaleX(var(--transform-size)); /* Firefox */
-  -ms-transform: scaleX(var(--transform-size)); /* IE 9 */
-  -o-transform: scaleX(var(--transform-size)); /* Opera */
-  transform: scaleX(var(--transform-size)); /* W3C */
+.staff {
+  position: absolute;
+  display: flex;
+}
+
+.symbols {
+  position: absolute;
+  display: flex;
+  width: calc(var(--music-font-size) * (var(--transform-size) / 2));
+}
+
+.system {
+  position: relative;
+  display: grid;
 }
