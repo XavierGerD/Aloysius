@@ -59,6 +59,33 @@ let restCodes = {
   sixteenth: "\uE4E7"
 };
 
+let keySignaturesCodes = {
+  G_MAJOR: {
+    type: "sharp",
+    size: 1
+  },
+
+  D_MAJOR: {
+    type: "sharp",
+    size: 2
+  },
+
+  A_MAJOR: {
+    type: "sharp",
+    size: 3
+  },
+
+  F_MAJOR: {
+    type: "flat",
+    size: 1
+  },
+
+  Bb_MAJOR: {
+    type: "flat",
+    size: 2
+  }
+};
+
 export {
   staffSegment,
   ledgerLine,
@@ -72,5 +99,6 @@ export {
   timeSignatureCodes,
   restCodes,
   flagCodes,
-  beamCodes
+  beamCodes,
+  keySignaturesCodes
 };

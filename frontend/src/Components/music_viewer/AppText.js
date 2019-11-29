@@ -1,4 +1,4 @@
-let appText = {
+let appText = JSON.stringify({
   instrument: "piano",
   notes: [
     [
@@ -317,6 +317,6 @@ let appText = {
       ]
     ]
   ]
-};
+});
 
 export default appText;

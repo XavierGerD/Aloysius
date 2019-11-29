@@ -4,7 +4,8 @@ import { allowDrop, drop } from "./dragAndDrop.js";
 import Note from "./Note.js";
 import "./Bar.css";
 
-let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
+let Bar = props => {
+  let { arr, clef, length, index, instrument, i } = props;
   let barLineType;
   if (index < length - 1) {
     barLineType = barlines.singleBarline;
@@ -45,7 +46,7 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
               case "sixteenth":
                 beat.push(
                   <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                    <Note char={char} clef={clef} fontSize={props.fontSize} />
                   </div>
                 );
                 beatCounter += 1;
@@ -53,7 +54,7 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
               case "eighth":
                 beat.push(
                   <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                    <Note char={char} clef={clef} fontSize={props.fontSize} />
                   </div>
                 );
                 beatCounter += 2;
@@ -61,7 +62,7 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
               case "half":
                 return (
                   <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                    <Note char={char} clef={clef} fontSize={props.fontSize} />
                     <div className="empty" />
                   </div>
                 );
@@ -69,7 +70,7 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
               case "whole":
                 return (
                   <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                    <Note char={char} clef={clef} fontSize={props.fontSize} />
                     <div className="empty" />
                     <div className="empty" />
                     <div className="empty" />
@@ -78,7 +79,7 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
               default:
                 return (
                   <div className="note">
-                    <Note char={char} clef={clef} fontSize={state.fontSize} />
+                    <Note char={char} clef={clef} fontSize={props.fontSize} />
                   </div>
                 );
             }
@@ -93,18 +94,31 @@ let Bar = ({ arr, clef, length, index, state, instrument, i }) => {
             } else return;
           }
           if (char.type === "rest") {
-            style = { marginTop: state.fontSize / -2 + "px" };
+            style = {
+              height: props.fontSize,
+              width: props.fontSize / 3,
+              marginTop: props.fontSize / -1 + "px",
+              paddingTop: props.fontSize / 2
+            };
+
             return (
-              <div className="note" style={style}>
-                <div className="noteHead">
+              <div className="note">
+                <div className="noteHead" style={style}>
                   {restCodes[char.code]}
                 </div>
               </div>
             );
           }
           if (char.type === "missing") {
-            style = { marginTop: state.fontSize / 8 * 7 + "px" };
-            return <div onDrop={event => drop(event)} onDragOver={event => allowDrop(event)} className="missingNote" style={style} />;
+            style = { marginTop: props.fontSize / 8 * 7 + "px" };
+            return (
+              <div
+                onDrop={event => drop(event)}
+                onDragOver={event => allowDrop(event)}
+                className="missingNote"
+                style={style}
+              />
+            );
           }
 
           return (

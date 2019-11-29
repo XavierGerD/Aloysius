@@ -6,7 +6,9 @@
 
 .upStem {
   position: absolute;
-  padding-left: calc((var(--music-font-size) / 4) + (var(--music-font-size) / 45));
+  padding-left: calc(
+     (var(--music-font-size) / 4) + (var(--music-font-size) / 45)
+  );
   font-size: var(--music-font-size);
   font-family: "Bravura";
 }
@@ -18,11 +20,19 @@
   font-size: var(--music-font-size);
   font-family: "Bravura";
 }
+.noteBox {
+  position: absolute;
+  z-index: 1000;
+}
 
 .noteHead {
-  position: absolute;
   font-size: var(--music-font-size);
   font-family: "Bravura";
+  overflow: hidden;
+}
+
+.noteHead:hover {
+  color: blue;
 }
 
 .flagUp {

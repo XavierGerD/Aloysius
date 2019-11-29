@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 import { modules, users, articles } from "./Data.js";
-import topics from "../Data/Users.js";
+// import topics from "../Data/Users.js";
 import * as R from "ramda";
 
 let reducer = (state, action) => {
@@ -29,7 +29,6 @@ const store = createStore(
     blocks: [],
     user: {},
     articles,
-    topics,
     currentBlock: [],
     currentTopic: undefined,
     loggedIn: false

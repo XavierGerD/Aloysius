@@ -44,10 +44,11 @@ class UnconnectedLesson extends Component {
     }
     return (
       <div>
-        {this.props.lesson.map(chunk => {
-          if (chunk.heading !== "") {
+        {this.props.lesson.map((chunk, i) => {
+          console.log("chunk", chunk.heading);
+          if (chunk.heading !== "score") {
             return (
-              <div>
+              <div key={i}>
                 <div className="lessonHeader">
                   <h1>
                     {chunk.heading}
@@ -58,8 +59,8 @@ class UnconnectedLesson extends Component {
                 </div>
               </div>
             );
-          } else {
-            return <Viewer />;
+          } else if (chunk.heading === "score") {
+            return <Viewer key={i} lesson={JSON.parse(chunk.text)} />;
           }
         })}
         <Link
