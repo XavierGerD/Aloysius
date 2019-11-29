@@ -1,0 +1,63 @@
+.missingNote {
+  width: 30px;
+  border: 1px solid black;
+  height: 75px;
+  background-color: #c7c7c7;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.bar {
+  display: flex;
+  flex: auto;
+  padding-left: calc(var(--music-font-size) / 4);
+}
+
+.barLineText {
+  display: flex;
+  flex-shrink: 1;
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+}
+
+.note {
+  display: flex;
+  position: relative;
+  flex: auto;
+  /* justify-content: space-around; */
+}
+
+.noteHeadBox {
+  display: flex;
+  position: relative;
+}
+
+.noteHead {
+  position: absolute;
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+}
+
+.barLineDiv {
+  width: calc(var(--music-font-size) / 30);
+  height: calc(var(--music-font-size) * 3.5);
+  margin-top: calc(var(--music-font-size) * -1);
+  background-color: black;
+}
+
+.blankFinalBarLineDiv {
+  width: calc(var(--music-font-size) / 15);
+  height: calc(var(--music-font-size) * 3.5);
+  margin-top: calc(var(--music-font-size) * -1);
+}
+
+.wideBarLineDiv {
+  width: calc(var(--music-font-size) / 8);
+  height: calc(var(--music-font-size) * 3.5);
+  margin-top: calc(var(--music-font-size) * -1);
+  background-color: black;
+}
+
+.finalBarLineDiv {
+  display: flex;
+}

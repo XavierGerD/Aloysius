@@ -1,0 +1,23 @@
+.staffConfig {
+  display: flex;
+  margin-right: 20px;
+  flex-shrink: 1;
+}
+
+.staffBox {
+  display: grid;
+}
+
+.systemBox {
+  padding-top: 40px;
+  height: calc(var(--music-font-size) * 5);
+  display: grid;
+  width: calc(var(--music-font-size) * (var(--transform-size) / 2));
+}
+
+.startBarLineDiv {
+  width: calc(var(--music-font-size) / 12);
+  height: calc(var(--music-font-size) * 3.5);
+  margin-top: calc(var(--music-font-size) * -1);
+  background-color: black;
+}

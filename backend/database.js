@@ -35,9 +35,11 @@ let getTopics = (topic, res) => {
 };
 
 let getBlock = (id, res) => {
-  let sql =
-    "SELECT * FROM content INNER JOIN block_contents ON content.content_id = block_contents.content_id WHERE block_contents.block_id = ?";
-  connection.query(sql, id, (err, rows) => {
+  let sql = `SELECT * FROM (content INNER JOIN block_contents ON content.content_id = block_contents.content_id) INNER JOIN block ON block_contents.content_id = block.block_id WHERE block_contents.block_id = ?
+    UNION 
+    SELECT * FROM (viewer_data INNER JOIN block_viewer_data ON viewer_data.content_id = block_viewer_data.viewer_content_id) INNER JOIN block ON block_viewer_data.viewer_content_id = block.block_id WHERE block_viewer_data.block_id = ?;`;
+  let filter = [id, id];
+  connection.query(sql, filter, (err, rows) => {
     if (err) throw err;
     console.log(rows);
     res.send(JSON.stringify({ success: true, rows }));
@@ -48,6 +50,9 @@ let login = (username, password, res) => {
   let sql = "SELECT * FROM users WHERE username LIKE ?";
   connection.query(sql, username, (err, row) => {
     if (err) throw err;
+    if (row.length === 0) {
+      return res.send(JSON.stringify({ success: false }));
+    }
     if (row[0].password === password) {
       console.log("success!");
       return res.send(JSON.stringify({ success: true, row }));

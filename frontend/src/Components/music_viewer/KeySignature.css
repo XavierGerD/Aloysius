@@ -1,0 +1,9 @@
+.keySignature {
+  display: flex;
+}
+
+.keySignatureText {
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+  margin-right: 5px;
+}

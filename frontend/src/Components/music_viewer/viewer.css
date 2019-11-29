@@ -1,0 +1,62 @@
+@font-face {
+  font-family: "Bravura";
+  src: url("/fonts/woff/Bravura.woff") format("woff"),
+    url("/fonts/svg/Bravura.svg") format("svg"),
+    url("/fonts/otf/Bravura.otf") format("otf");
+}
+
+:root {
+  --music-font-size: 60px;
+  --transform-size: 40;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+* {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.viewerContainer {
+  margin-top: var(--music-font-size);
+  position: relative;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0px;
+}
+
+.notehead {
+  position: absolute;
+  display: flex;
+}
+
+.barContainer {
+  display: flex;
+  flex: auto;
+}
+
+.submitButton {
+  line-height: 20px;
+}
+
+.scoreTitle {
+  position: relative;
+  font-size: calc(var(--music-font-size) / 2);
+  margin-bottom: var(--music-font-size);
+}

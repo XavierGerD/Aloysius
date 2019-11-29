@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./lesson.css";
+import Viewer from "./music_viewer/viewer";
 
 class UnconnectedLesson extends Component {
   componentDidMount = async () => {
@@ -38,21 +39,28 @@ class UnconnectedLesson extends Component {
   };
 
   render = () => {
+    if (this.props.lesson[0]) {
+      console.log("lesson", this.props.lesson[0].type);
+    }
     return (
       <div>
         {this.props.lesson.map(chunk => {
-          return (
-            <div>
-              <div className="lessonHeader">
-                <h1>
-                  {chunk.heading}
-                </h1>
+          if (chunk.heading !== "") {
+            return (
+              <div>
+                <div className="lessonHeader">
+                  <h1>
+                    {chunk.heading}
+                  </h1>
+                </div>
+                <div className="lessonBody">
+                  {chunk.text}
+                </div>
               </div>
-              <div className="lessonBody">
-                {chunk.text}
-              </div>
-            </div>
-          );
+            );
+          } else {
+            return <Viewer />;
+          }
         })}
         <Link
           to={"/skilltree/" + this.props.topic}
@@ -64,6 +72,8 @@ class UnconnectedLesson extends Component {
         </Link>
       </div>
     );
+    // }
+    return null;
   };
 }
 

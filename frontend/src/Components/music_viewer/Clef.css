@@ -1,0 +1,6 @@
+.clefText {
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+  margin-right: calc(var(--music-font-size) / 10);
+  margin-left: calc(var(--music-font-size) / 6);
+}

@@ -1,0 +1,15 @@
+.staff {
+  position: absolute;
+  display: flex;
+}
+
+.symbols {
+  position: absolute;
+  display: flex;
+  width: calc(var(--music-font-size) * (var(--transform-size) / 2));
+}
+
+.system {
+  position: relative;
+  display: grid;
+}

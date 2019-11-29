@@ -1,0 +1,49 @@
+.ledgerLine {
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+  position: absolute;
+}
+
+.upStem {
+  position: absolute;
+  padding-left: calc((var(--music-font-size) / 4) + (var(--music-font-size) / 45));
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+}
+
+.downStem {
+  position: absolute;
+  left: 0;
+  padding-top: calc(var(--music-font-size) - (var(--music-font-size) / 10));
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+}
+
+.noteHead {
+  position: absolute;
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+}
+
+.flagUp {
+  position: absolute;
+  top: 0;
+  margin-top: calc((var(--music-font-size) / -8) * 7);
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+}
+
+.flagDown {
+  position: absolute;
+  top: 0;
+  margin-top: calc((var(--music-font-size) / 8) * 7);
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+}
+
+.beamUp {
+  transform-origin: top left;
+  /* transform: scaleX(2) skewY(-20.5deg); */
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+}
