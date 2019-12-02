@@ -15,7 +15,7 @@ class Viewer extends Component {
   state = {
     title: "Song Without Words",
     fontSize: 60,
-    maxBars: 4,
+    maxBarsPerSystem: 4,
     clef: "treble",
     keySignature: this.props.lesson.keySignature,
     timeSignature: this.props.lesson.timeSignature,
@@ -57,9 +57,7 @@ class Viewer extends Component {
     console.log("props.lesson", this.props.lesson);
     return (
       <div className="viewerContainer">
-        <div className="scoreTitle">
-          {this.state.title}
-        </div>
+        <div className="scoreTitle">{this.state.title}</div>
         <div className="score">
           <Page {...this.state} />
         </div>

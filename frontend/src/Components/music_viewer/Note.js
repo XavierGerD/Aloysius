@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { uuid } from "uuidv4";
 import "./Note.css";
 import {
   stem,
@@ -84,7 +85,7 @@ let findLedgerLines = (offset, baseOffset) => {
       }
       console.log("offset", offset);
       ledgerLines.push(
-        <div className="ledgerLine" style={ledgerOffset}>
+        <div key={uuid()} className="ledgerLine" style={ledgerOffset}>
           {ledgerLine}
         </div>
       );
@@ -197,7 +198,12 @@ class UnconnectedNote extends Component {
           let deleteMe = () => {};
 
           return (
-            <div className="noteBox" style={style}>
+            <div
+              key={uuid()}
+              className="noteBox"
+              style={style}
+              onClick={deleteMe}
+            >
               {ledgerLines}
               <div className="noteHead" style={otherStyle}>
                 {noteheadCodes[this.props.char.code]}
@@ -224,12 +230,11 @@ class UnconnectedNote extends Component {
   };
 }
 
-let mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  // console.log("CURRENTBLOCK:", state.currentBlock);
   return {
     currentBlock: state.currentBlock
   };
 };
-
 let Note = connect(mapStateToProps)(UnconnectedNote);
-
 export default Note;

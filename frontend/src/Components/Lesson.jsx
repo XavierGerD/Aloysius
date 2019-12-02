@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { uuid } from "uuidv4";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./lesson.css";
@@ -48,7 +49,7 @@ class UnconnectedLesson extends Component {
           console.log("chunk", chunk.heading);
           if (chunk.heading !== "score") {
             return (
-              <div key={i}>
+              <div key={uuid()}>
                 <div className="lessonHeader">
                   <h1>
                     {chunk.heading}
@@ -60,7 +61,7 @@ class UnconnectedLesson extends Component {
               </div>
             );
           } else if (chunk.heading === "score") {
-            return <Viewer key={i} lesson={JSON.parse(chunk.text)} />;
+            return <Viewer key={uuid()} lesson={JSON.parse(chunk.text)} />;
           }
         })}
         <Link

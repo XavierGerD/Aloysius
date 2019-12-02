@@ -1,11 +1,12 @@
 import React from "react";
+import { uuid } from "uuidv4";
 import { barlines, restCodes } from "./UnicodeAssignment.js";
 import { allowDrop, drop } from "./dragAndDrop.js";
 import Note from "./Note.js";
 import "./Bar.css";
 
 let Bar = props => {
-  let { arr, clef, length, index, instrument, i } = props;
+  let { hand, clef, length, index, instrument, i } = props;
   let barLineType;
   if (index < length - 1) {
     barLineType = barlines.singleBarline;
@@ -35,7 +36,7 @@ let Bar = props => {
   return (
     <React.Fragment>
       <div className="bar">
-        {" "}{arr.map(char => {
+        {" "}{hand.map(char => {
           let style;
           if (char.type === "note") {
             if (beatCounter === 0) {
@@ -45,32 +46,52 @@ let Bar = props => {
             switch (char.code) {
               case "sixteenth":
                 beat.push(
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={props.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                   </div>
                 );
                 beatCounter += 1;
                 break;
               case "eighth":
                 beat.push(
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={props.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                   </div>
                 );
                 beatCounter += 2;
                 break;
               case "half":
                 return (
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={props.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                     <div className="empty" />
                   </div>
                 );
 
               case "whole":
                 return (
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={props.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                     <div className="empty" />
                     <div className="empty" />
                     <div className="empty" />
@@ -78,8 +99,13 @@ let Bar = props => {
                 );
               default:
                 return (
-                  <div className="note">
-                    <Note char={char} clef={clef} fontSize={props.fontSize} />
+                  <div key={uuid()} className="note">
+                    <Note
+                      key={uuid()}
+                      char={char}
+                      clef={clef}
+                      fontSize={props.fontSize}
+                    />
                   </div>
                 );
             }
@@ -87,7 +113,7 @@ let Bar = props => {
             if (beatCounter >= 4) {
               beatCounter = 0;
               return (
-                <div className="note">
+                <div key={uuid()} className="note">
                   {beat}
                 </div>
               );
@@ -102,7 +128,7 @@ let Bar = props => {
             };
 
             return (
-              <div className="note">
+              <div key={uuid()} className="note">
                 <div className="noteHead" style={style}>
                   {restCodes[char.code]}
                 </div>

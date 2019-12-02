@@ -1,4 +1,5 @@
 import React from "react";
+import { uuid } from "uuidv4";
 import "./KeySignature.css";
 import {
   accidentalCodes,
@@ -59,14 +60,14 @@ let KeySignature = ({ signature, clef, fontSize }) => {
       marginTop: accidental[i] * fontSize + parseFloat(offset) * fontSize
     };
     ret.push(
-      <div className="keySignatureText" style={style}>
+      <div key={uuid()} className="keySignatureText" style={style}>
         {accidentalCodes[signature.type]}
       </div>
     );
   }
 
   return (
-    <div className="keySignature">
+    <div key={uuid()} className="keySignature">
       {ret}
     </div>
   );
