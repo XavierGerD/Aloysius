@@ -1,0 +1,39 @@
+.loginSelector {
+  margin-top: 100px;
+  width: 400px;
+}
+
+.tabSelector {
+  font-family: "Raleway", sans-serif;
+  border-radius: 15px 15px 0px 0px;
+  border: 2px solid #d1d1d1;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom-style: hidden;
+}
+
+.tabSelector:hover {
+  background-color: #d1d1d1;
+}
+
+.tabSelector:checked {
+  background-color: #d1d1d1;
+}
+
+.radio1 {
+  display: none;
+}
+
+.tabContainer {
+  display: flex;
+}
+
+.componentHolder {
+  padding: 30px;
+  border: 2px solid #d1d1d1;
+  border-radius: 0px 0px 15px 15px;
+  border-top-style: hidden;
+}

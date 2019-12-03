@@ -18,8 +18,8 @@ let Beam = ({ x1, x2, y, fontSize, code, className }) => {
   let scale = calculateScaleX(x1, x2);
   let skew = calculateSkewY(x1, y) * (180 / Math.PI);
 
-  console.log("scale ", scale);
-  console.log("skew ", skew);
+  // console.log("scale ", scale);
+  // console.log("skew ", skew);
 
   style = { transform: `scaleX(${scale}) skewY(${skew})` };
 

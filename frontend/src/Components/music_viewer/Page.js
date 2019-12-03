@@ -75,6 +75,7 @@ let Page = props => {
           index={j}
           instrument={instrument}
           i={i}
+          j={j}
         />
       );
 

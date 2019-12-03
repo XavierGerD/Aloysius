@@ -63,6 +63,9 @@ let login = (username, password, res) => {
 };
 
 let signup = (username, password, email, code, res) => {
+  if (username.length === 0 || email.length === 0 || password.length === 0) {
+    return res.send(JSON.stringify({ success: false }));
+  }
   let sql = "SELECT * FROM users WHERE username like ? OR email LIKE ?";
   let filters = [username, email];
   connection.query(sql, filters, (err, row) => {
@@ -71,13 +74,21 @@ let signup = (username, password, email, code, res) => {
       if (code.length === 0) {
         code = 1;
       }
+      let progress = "{}";
       sql =
-        "INSERT INTO users (username, password, email, code) VALUES (?, ?, ?, ?)";
-      filters = [username, password, email, code];
+        "INSERT INTO users (username, password, email, progress, classroom) VALUES (?, ?, ?, ?, ?)";
+      filters = [username, password, email, progress, code];
       connection.query(sql, filters, (err, row) => {
         if (err) throw err;
         res.send(JSON.stringify({ success: true }));
       });
+    } else {
+      console.log(row[0]);
+      if (username === row[0].username) {
+        res.send(JSON.stringify({ success: false, username: true }));
+      } else if (email === row[0].email) {
+        res.send(JSON.stringify({ success: false, email: true }));
+      }
     }
   });
 };
@@ -122,3 +133,4 @@ module.exports.getTopics = getTopics;
 module.exports.login = login;
 module.exports.updateProgress = updateProgress;
 module.exports.getCourse = getCourse;
+module.exports.signup = signup;

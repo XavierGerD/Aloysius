@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import "./signup.css";
 
 class UnconnectedSignup extends Component {
   constructor() {
@@ -9,12 +10,16 @@ class UnconnectedSignup extends Component {
       usernameInput: "",
       passwordInput: "",
       emailInput: "",
-      codeInput: ""
+      codeInput: "",
+      usernameInUse: false,
+      emailInUse: false
     };
   }
 
   handleSubmit = async ev => {
     ev.preventDefault();
+    this.setState({ usernameInUse: false });
+    this.setState({ emailInUse: false });
     let data = new FormData();
     data.append("username", this.state.usernameInput);
     data.append("password", this.state.passwordInput);
@@ -27,13 +32,17 @@ class UnconnectedSignup extends Component {
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
     if (parsed.success) {
-      window.alert("login success!");
       return this.props.dispatch({
         type: "signup-success",
         payload: parsed.row[0]
       });
     }
-    window.alert("Signup failed!");
+    if (!parsed.success && parsed.username) {
+      this.setState({ usernameInUse: true });
+    }
+    if (!parsed.success && parsed.email) {
+      this.setState({ emailInUse: true });
+    }
   };
 
   handleUsernameChange = event => {
@@ -55,16 +64,45 @@ class UnconnectedSignup extends Component {
   render = () => {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          Username
-          <input type="text" onChange={this.handleUsernameChange} />
-          Password
-          <input type="text" onChange={this.handlePasswordChange} />
-          Email
-          <input type="text" onChange={this.handleEmailChange} />
-          Classroom code (optional)
-          <input type="text" onChange={this.handleClassroomChange} />
-          <input type="submit" />
+        <form onSubmit={this.handleSubmit} className="signupBox">
+          Please create an account!
+          <input
+            type="text"
+            onChange={this.handleUsernameChange}
+            className="inputBox"
+            placeholder="Username"
+            required
+          />
+          {this.state.usernameInUse
+            ? <div className="wrongPassword">Username already in use!</div>
+            : null}
+          <input
+            type="password"
+            onChange={this.handleEmailChange}
+            className="inputBox"
+            placeholder="Email"
+            required
+          />
+          {this.state.emailInUse
+            ? <div className="wrongPassword">Email already in use!</div>
+            : null}
+          <input
+            type="text"
+            onChange={this.handlePasswordChange}
+            className="inputBox"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="text"
+            onChange={this.handleClassroomChange}
+            className="inputBox"
+            placeholder="Classroom code (optional)"
+          />
+          <div className="smallText">
+            If you don't have a classroom code, leave this field blank
+          </div>
+          <input type="submit" className="submitButton" />
         </form>
       </div>
     );

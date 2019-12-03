@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import "./login.css";
 
 class UnconnectedLogin extends Component {
   constructor() {
     super();
     this.state = {
       usernameInput: "",
-      passwordInput: ""
+      passwordInput: "",
+      loginFailed: false
     };
   }
 
@@ -23,13 +25,12 @@ class UnconnectedLogin extends Component {
     let responseBody = await response.text();
     let parsed = JSON.parse(responseBody);
     if (parsed.success) {
-      window.alert("login success!");
       return this.props.dispatch({
         type: "login-success",
         payload: parsed.row[0]
       });
     }
-    window.alert("Login failed!");
+    this.setState({ loginFailed: true });
   };
 
   handleUsernameChange = event => {
@@ -43,15 +44,27 @@ class UnconnectedLogin extends Component {
   render = () => {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          Username
-          <input type="text" onChange={this.handleUsernameChange} />
-          Password
-          <input type="text" onChange={this.handlePasswordChange} />
-          <input type="submit" />
+        <form onSubmit={this.handleSubmit} className="loginBox">
+          Please log in!
+          <input
+            type="text"
+            onChange={this.handleUsernameChange}
+            className="inputBox"
+            placeholder="Username"
+            required
+          />
+          <input
+            type="password"
+            onChange={this.handlePasswordChange}
+            className="inputBox"
+            placeholder="Password"
+            required
+          />
+          {this.state.loginFailed
+            ? <div className="wrongPassword">Wrong username or password</div>
+            : null}
+          <input type="submit" className="submitButton" />
         </form>
-        Don't have an account?
-        <Link to="/signup"> Sign up here</Link>.
       </div>
     );
   };

@@ -17,7 +17,15 @@ let reducer = (state, action) => {
       return { ...state, blocks: action.payload, currentTopic: action.topic };
     case "blocks":
       console.log("lesson:", action.payload);
-      return { ...state, currentBlock: action.payload };
+      let currentBlock = action.payload;
+      currentBlock[1].text = JSON.parse(currentBlock[1].text);
+      console.log("parsed lesson:", currentBlock);
+      return { ...state, currentBlock };
+    case "update-block":
+      console.log("payload", action.payload);
+      let newBlock = R.clone(state.currentBlock);
+      newBlock[1].text = action.payload;
+      return { ...state, currentBlock: newBlock };
     default:
       return state;
   }

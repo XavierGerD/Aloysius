@@ -61,7 +61,7 @@ class UnconnectedLesson extends Component {
               </div>
             );
           } else if (chunk.heading === "score") {
-            return <Viewer key={uuid()} lesson={JSON.parse(chunk.text)} />;
+            return <Viewer key={uuid()} lesson={chunk.text} />;
           }
         })}
         <Link

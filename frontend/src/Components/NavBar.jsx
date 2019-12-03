@@ -53,7 +53,8 @@ class UnconnectedNavBar extends Component {
 let mapStateToProps = state => {
   return {
     name: state.username,
-    score: state.totalScore
+    score: state.totalScore,
+    loggedIn: state.loggedIn
   };
 };
 
