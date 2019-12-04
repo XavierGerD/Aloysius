@@ -60,37 +60,6 @@ h1 {
   font-family: arial;
 }
 
-.answerBox {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
-
-.answerButton {
-  font-size: 60px;
-  font-family: "Bravura";
-  color: black;
-  line-height: 115px;
-  height: 75px;
-  margin: 1px;
-  margin-bottom: 10px;
-  background-color: white;
-  border-radius: 5px;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  border: 1px solid black;
-  box-shadow: 2px 2px black;
-}
-
-.answerButton:hover {
-  background-color: #e6e6e6;
-}
-
-.answerButton:focus {
-  outline: none;
-}
-
 .inputbox {
   height: 30px;
   width: 200px;

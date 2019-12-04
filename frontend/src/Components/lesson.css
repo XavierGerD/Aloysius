@@ -1,5 +1,6 @@
 .lessonBody {
   width: 600px;
+  font-family: "Raleway", sans-serif;
 }
 
 .buttonHolder {
@@ -9,6 +10,7 @@
 }
 
 .button1 {
+  font-family: "Raleway", sans-serif;
   width: 100px;
   height: 50px;
   border: 1px solid #d1d1d1;

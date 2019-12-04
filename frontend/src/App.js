@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { uuid } from "uuidv4";
-import { articles, lessons } from "./Components/Data.js";
 import SkillTree from "./Components/SkillTree.jsx";
 import NavBar from "./Components/NavBar.jsx";
 import Sidebar from "./Components/Sidebar.jsx";
@@ -26,7 +24,7 @@ class UnconnectedApp extends Component {
         <div className="homePage">
           <div className="bgImage">
             <div className="gradient" />
-            <img src="/homepagebg.png" className="homeImage" />
+            <img src="/homepagebg.png" className="homeImage" alt="" />
           </div>
           <div className="welcomeContainer">
             <div className="welcomeTextHolder">
@@ -56,13 +54,13 @@ class UnconnectedApp extends Component {
             </div>
           </div>
           <div className="homePagePictureContainer">
-            <img src="/rhythmpractice.png" className="homePageImage" />
+            <img src="/rhythmpractice.png" className="homePageImage" alt="" />
           </div>
         </div>
         <div className="homePageSpacer" />
         <div className="homePageSection">
           <div className="homePagePictureContainer">
-            <img src="/musky.jpg" />
+            <img src="/musky.jpg" alt="" />
           </div>
           <div>
             <div>
@@ -92,7 +90,7 @@ class UnconnectedApp extends Component {
             </div>
           </div>
           <div className="homePagePictureContainer">
-            <img src="/musky.jpg" />
+            <img src="/musky.jpg" alt="" />
           </div>
         </div>
       </div>

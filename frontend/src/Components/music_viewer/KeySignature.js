@@ -46,7 +46,6 @@ let flatKeysignaturePositions = [-0.5, -0.875, -0.475, -0.75, -1.125, -1];
 
 let KeySignature = ({ signature, clef, fontSize }) => {
   signature = keySignaturesCodes[signature];
-  console.log("sig", typeof signature);
   let ret = [];
   let accidental;
   let offset = clefCodes[clef].noteOffset;

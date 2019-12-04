@@ -41,12 +41,12 @@ class UnconnectedLesson extends Component {
 
   render = () => {
     if (this.props.lesson[0]) {
-      console.log("lesson", this.props.lesson[0].type);
+      // console.log("lesson", this.props.lesson[0].type);
     }
     return (
       <div>
         {this.props.lesson.map((chunk, i) => {
-          console.log("chunk", chunk.heading);
+          // console.log("chunk", chunk.heading);
           if (chunk.heading !== "score") {
             return (
               <div key={uuid()}>
@@ -61,21 +61,23 @@ class UnconnectedLesson extends Component {
               </div>
             );
           } else if (chunk.heading === "score") {
-            return <Viewer key={uuid()} lesson={chunk.text} />;
+            let currentExercise = Math.floor(Math.random() * chunk.text.length);
+            return <Viewer key={uuid()} lesson={chunk.text[currentExercise]} />;
           }
         })}
+
         <Link
           to={"/skilltree/" + this.props.topic}
           onClick={this.lessonComplete}
         >
-          <div className="buttonHolder">
-            <div className="button1">GOT IT!</div>
-          </div>
+          {this.props.completed
+            ? <div className="buttonHolder">
+                <div className="button1">GOT IT!</div>
+              </div>
+            : null}
         </Link>
       </div>
     );
-    // }
-    return null;
   };
 }
 
@@ -83,7 +85,9 @@ let mapStateToProps = state => {
   return {
     lesson: state.currentBlock,
     user: state.user,
-    topic: state.currentTopic
+    topic: state.currentTopic,
+    completed: state.currentBlockComplete,
+    permission: state.permission
   };
 };
 

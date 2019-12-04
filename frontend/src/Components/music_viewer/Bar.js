@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { uuid } from "uuidv4";
 import { barlines } from "./UnicodeAssignment.js";
-import { allowDrop, drop } from "./dragAndDrop.js";
+import MissingNote from "./MissingNote.js";
+
 import Chord from "./Chord.js";
 import Rest from "./Rest.js";
 import "./Bar.css";
+import "./dragAndDrop.css";
 
-class Bar extends Component {
+class UnconnectedBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,110 +45,31 @@ class Bar extends Component {
     }
     let beat = [];
     let beatCounter = 0;
+    let missingNotePosition = 1;
     return (
       <React.Fragment>
         <div className="bar">
           {" "}{hand.map((char, i) => {
-            let style;
+            if (beatCounter === 0) {
+              beat = [];
+            }
             if (char.type === "note") {
-              if (beatCounter === 0) {
-                beat = [];
-              }
-
-              switch (char.code) {
-                case "sixteenth":
-                  beat.push(
-                    <div key={uuid()} className="note">
-                      <Chord
-                        key={uuid()}
-                        char={char}
-                        clef={clef}
-                        fontSize={this.props.fontSize}
-                        barNumber={this.state.barNumber}
-                        hand={this.state.hand}
-                        beatNumber={i}
-                      />
-                    </div>
-                  );
-                  beatCounter += 1;
-                  break;
-                case "eighth":
-                  beat.push(
-                    <div key={uuid()} className="note">
-                      <Chord
-                        key={uuid()}
-                        char={char}
-                        clef={clef}
-                        fontSize={this.props.fontSize}
-                        barNumber={this.state.barNumber}
-                        hand={this.state.hand}
-                        beatNumber={i}
-                      />
-                    </div>
-                  );
-                  beatCounter += 2;
-                  break;
-                case "half":
-                  return (
-                    <div key={uuid()} className="note">
-                      <Chord
-                        key={uuid()}
-                        char={char}
-                        clef={clef}
-                        fontSize={this.props.fontSize}
-                        barNumber={this.state.barNumber}
-                        hand={this.state.hand}
-                        beatNumber={i}
-                      />
-                      <div className="empty" />
-                    </div>
-                  );
-
-                case "whole":
-                  return (
-                    <div key={uuid()} className="note">
-                      <Chord
-                        key={uuid()}
-                        char={char}
-                        clef={clef}
-                        fontSize={this.props.fontSize}
-                        barNumber={this.state.barNumber}
-                        hand={this.state.hand}
-                        beatNumber={i}
-                      />
-                      <div className="empty" />
-                      <div className="empty" />
-                      <div className="empty" />
-                    </div>
-                  );
-                default:
-                  return (
-                    <div key={uuid()} className="note">
-                      <Chord
-                        key={uuid()}
-                        char={char}
-                        clef={clef}
-                        fontSize={this.props.fontSize}
-                        barNumber={this.state.barNumber}
-                        hand={this.state.hand}
-                        beatNumber={i}
-                      />
-                    </div>
-                  );
-              }
-
-              if (beatCounter >= 4) {
-                beatCounter = 0;
-                return (
-                  <div key={uuid()} className="note">
-                    {beat}
-                  </div>
-                );
-              } else return;
+              beat.push(
+                <div key={uuid()} className="note">
+                  <Chord
+                    key={uuid()}
+                    char={char}
+                    clef={clef}
+                    fontSize={this.props.fontSize}
+                    barNumber={this.state.barNumber}
+                    hand={this.state.hand}
+                    beatNumber={i}
+                  />
+                </div>
+              );
             }
             if (char.type === "rest") {
-              console.log("beat number in bar component", i);
-              return (
+              beat.push(
                 <div key={uuid()} className="note">
                   <Rest
                     code={char.code}
@@ -158,22 +82,65 @@ class Bar extends Component {
               );
             }
             if (char.type === "missing") {
-              style = { marginTop: this.props.fontSize / 8 * 7 + "px" };
-              return (
-                <div
-                  onDrop={event => drop(event)}
-                  onDragOver={event => allowDrop(event)}
-                  className="missingNote"
-                  style={style}
+              let payloadObject = {};
+              payloadObject.type = char.code;
+              payloadObject.rightAnswer = false;
+              payloadObject.barNumber = this.state.barNumber;
+              payloadObject.position = missingNotePosition;
+              this.props.dispatch({
+                type: "total-answers",
+                payload: payloadObject
+              });
+              beat.push(
+                <MissingNote
+                  expectedAnswer={char.code}
+                  position={missingNotePosition}
+                  barNumber={this.state.barNumber}
                 />
               );
+              missingNotePosition += 1;
             }
 
-            return (
-              <div className="characterText" style={style}>
-                {char.code}
-              </div>
-            );
+            switch (char.code) {
+              case "sixteenth":
+                beatCounter += 1;
+                break;
+              case "eighth":
+                beatCounter += 2;
+                break;
+              case "quarter":
+                beatCounter += 4;
+                break;
+              case "half":
+                beatCounter += 8;
+                beat.push(
+                  <div key={uuid()} className="note">
+                    <div className="empty" />
+                  </div>
+                );
+                break;
+              case "whole":
+                beatCounter += 16;
+                for (let i = 0; i < 3; i++) {
+                  beat.push(
+                    <div key={uuid()} className="note">
+                      <div className="empty" />
+                    </div>
+                  );
+                }
+                break;
+
+              default:
+                return;
+            }
+            if (beatCounter >= 4) {
+              beatCounter = 0;
+              return (
+                <div key={uuid()} className="note">
+                  {beat}
+                </div>
+              );
+            } else return;
           })}
         </div>
         <div className="barLineText">
@@ -184,4 +151,5 @@ class Bar extends Component {
   };
 }
 
+let Bar = connect()(UnconnectedBar);
 export default Bar;

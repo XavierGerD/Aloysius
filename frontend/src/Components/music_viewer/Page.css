@@ -10,9 +10,10 @@
 
 .systemBox {
   padding-top: 40px;
-  height: calc(var(--music-font-size) * 5);
+  /* height: calc(var(--music-font-size) * 5); */
   display: grid;
   width: calc(var(--music-font-size) * (var(--transform-size) / 2));
+  margin-bottom: 100px;
 }
 
 .startBarLineDiv {

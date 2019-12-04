@@ -37,7 +37,9 @@ let Page = props => {
         <div className="barLineText">
           {instrument === "piano" && clef === "treble"
             ? <div className="startBarLineDiv" />
-            : null}
+            : <div>
+                {barlines.startingBarline}
+              </div>}
           {/* {instrument === "piano" && clef === "treble" ? <div className="startBarLineDiv" /> : null} {} */}
         </div>
         {<Clef clef={clef} fontSize={props.fontSize} />}
@@ -61,7 +63,6 @@ let Page = props => {
   score.forEach((bar, j) => {
     bar.forEach((hand, i) => {
       let clef = determineClef(i, instrument);
-
       if (j === 0 || (system[i].length === 0 && j > 0)) {
         system[i].push(staffConfig(j, i));
       }

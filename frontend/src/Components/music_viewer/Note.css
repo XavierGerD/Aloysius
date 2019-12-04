@@ -22,13 +22,13 @@
 }
 .noteBox {
   position: absolute;
-  z-index: 1000;
 }
 
 .noteHead {
   font-size: var(--music-font-size);
   font-family: "Bravura";
   overflow: hidden;
+  z-index: 100;
 }
 
 .noteHead:hover {

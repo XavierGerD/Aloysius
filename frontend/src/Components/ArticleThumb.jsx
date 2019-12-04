@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import "./ArticleThumb.css";
 
 class ArticleThumb extends Component {
@@ -11,7 +10,7 @@ class ArticleThumb extends Component {
     return (
       <div className={article}>
         <div className="thumbnail">
-          <img src={"/" + this.props.thumbnail} className="image" />
+          <img src={"/" + this.props.thumbnail} className="image" alt="" />
         </div>
         <div className="title">
           {this.props.title}

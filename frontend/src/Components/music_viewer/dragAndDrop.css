@@ -1,0 +1,49 @@
+.answerBox {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 400px;
+}
+
+.answerButton {
+  font-size: var(--music-font-size);
+  font-family: "Bravura";
+  color: black;
+  line-height: calc(var(--music-font-size) / 8 * 15);
+  height: calc(var(--music-font-size) / 8 * 10);
+  width: var(--music-font-size);
+  margin: 1px;
+  margin-bottom: 10px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border: 1px solid black;
+  box-shadow: 2px 2px black;
+}
+
+.answerButton:hover {
+  background-color: #e6e6e6;
+}
+
+.answerButton:focus {
+  outline: none;
+}
+
+.missingNote {
+  width: var(--music-font-size);
+  border: 2px dashed black;
+  height: calc(var(--music-font-size) / 8 * 10);
+  border-radius: 5px;
+  margin-right: calc(var(--music-font-size)/ 8 * 2);
+}
+
+.missingStaffNote {
+  width: var(--music-font-size);
+  border: 2px dashed black;
+  height: calc(var(--music-font-size) / 8 * 10);
+  border-radius: 5px;
+  margin-right: calc(var(--music-font-size)/ 8 * 2);
+  margin-top: calc(var(--music-font-size)/ 8 * -9);
+}

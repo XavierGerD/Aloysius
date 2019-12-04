@@ -18,7 +18,7 @@ class Rest extends Component {
     };
 
     return (
-      <div className="noteHead" style={style}>
+      <div className="noteHead" style={style} key={uuid()}>
         {restCodes[this.props.code]}
       </div>
     );

@@ -4,15 +4,11 @@ import { uuid } from "uuidv4";
 import "./Note.css";
 import {
   stem,
-  noteheadCodes,
   clefCodes,
   ledgerLine,
   flagCodes,
   beamCodes
 } from "./UnicodeAssignment.js";
-import Beam from "./Beam.js";
-import Beamhook from "./Beamhook.js";
-import * as R from "ramda";
 import Note from "./Note.js";
 
 let findOctave = (pitch, i, clef) => {
@@ -85,7 +81,7 @@ let findLedgerLines = (offset, baseOffset) => {
           marginTop: i * baseOffset * -2 - baseOffset + "px"
         };
       }
-      // console.log("offset", offset);
+      console.log("offset", offset);
       ledgerLines.push(
         <div key={uuid()} className="ledgerLine" style={ledgerOffset}>
           {ledgerLine}
@@ -145,7 +141,7 @@ class UnconnectedChord extends Component {
               j,
               this.props.clef
             );
-            noteHeadsOffsets.push(
+            return noteHeadsOffsets.push(
               parseFloat(clefCodes[this.props.clef].noteOffset) *
                 this.props.fontSize +
                 parseFloat(pitchOffset[this.props.char.pitch[j].note]) -
@@ -201,9 +197,12 @@ class UnconnectedChord extends Component {
             marginTop: offset + "px"
           };
 
-          let otherStyle = {
+          let hitBox = {
             height: this.props.fontSize / 6,
-            width: this.props.fontSize / 3,
+            width:
+              this.props.char.code === "whole"
+                ? this.props.fontSize / 2
+                : this.props.fontSize / 3,
             paddingTop: this.props.fontSize / 8 + "px",
             marginTop: this.props.fontSize / -8 + "px"
           };
@@ -211,7 +210,7 @@ class UnconnectedChord extends Component {
           return (
             <Note
               style={style}
-              otherStyle={otherStyle}
+              hitBox={hitBox}
               ledgerLines={ledgerLines}
               code={this.props.char.code}
               stemDirection={stemDirection}
@@ -223,36 +222,10 @@ class UnconnectedChord extends Component {
               x2={40}
               y={0}
               fontSize={this.props.fontSize}
-              code={this.props.char.code}
               className={flagClass}
               flag={flag}
               pitch={i}
             />
-            // <div
-            //   key={uuid()}
-            //   className="noteBox"
-            //   style={style}
-            //   onClick={this.deleteMe}
-            // >
-            //   {ledgerLines}
-            //   <div className="noteHead" style={otherStyle}>
-            //     {noteheadCodes[this.props.char.code]}
-            //   </div>
-            //   <div className={stemDirection}>
-            //     {this.props.char.code === "whole" ? null : stem}
-            //     <Beam
-            //       x1={0}
-            //       x2={40}
-            //       y={0}
-            //       fontSize={this.props.fontSize}
-            //       code={this.props.char.code}
-            //       className={flagClass}
-            //     />
-            //     {/* <div className={flagClass}>
-            //     {flag}
-            //   </div> */}
-            //   </div>
-            // </div>
           );
         })}
       </React.Fragment>

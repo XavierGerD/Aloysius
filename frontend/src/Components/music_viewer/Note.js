@@ -18,36 +18,43 @@ class UnconnectedNote extends Component {
   }
 
   deleteMe = () => {
-    let block = R.clone(this.props.currentBlock[1].text);
-    let chord =
-      block.notes.notes[this.state.barNumber][this.state.hand][
-        this.state.beatNumber
-      ].pitch;
-    chord.splice(this.state.pitch, 1);
-    if (chord.length === 0) {
-      block.notes.notes[this.state.barNumber][this.state.hand][
-        this.state.beatNumber
-      ] = {
-        type: "rest",
-        code:
-          block.notes.notes[this.state.barNumber][this.state.hand][
-            this.state.beatNumber
-          ].code
-      };
+    if (this.props.permission !== "user") {
+      let block = R.clone(this.props.currentBlock[1].text);
+      let chord =
+        block.notes.notes[this.state.barNumber][this.state.hand][
+          this.state.beatNumber
+        ].pitch;
+      let beatNumber =
+        block.notes.notes[this.state.barNumber][this.state.hand][
+          this.state.beatNumber
+        ];
+      chord.splice(this.state.pitch, 1);
+      if (chord.length === 0) {
+        console.log(
+          "hand",
+          block.notes.notes[this.state.barNumber][this.state.hand]
+        );
+        console.log("beatNumber", beatNumber);
+        block.notes.notes[this.state.barNumber][this.state.hand][
+          this.state.beatNumber
+        ] = {
+          type: "rest",
+          code: beatNumber.code
+        };
+      }
+      this.props.dispatch({ type: "update-block", payload: block });
     }
-    this.props.dispatch({ type: "update-block", payload: block });
   };
 
   render = () => {
     return (
-      <div
-        key={uuid()}
-        className="noteBox"
-        style={this.props.style}
-        onClick={this.deleteMe}
-      >
+      <div key={uuid()} className="noteBox" style={this.props.style}>
         {this.props.ledgerLines}
-        <div className="noteHead" style={this.props.otherStyle}>
+        <div
+          className="noteHead"
+          style={this.props.hitBox}
+          onClick={this.deleteMe}
+        >
           {noteheadCodes[this.props.code]}
         </div>
         <div className={this.props.stemDirection}>
@@ -71,7 +78,8 @@ class UnconnectedNote extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentBlock: state.currentBlock
+    currentBlock: state.currentBlock,
+    permission: state.permission
   };
 };
 let Note = connect(mapStateToProps)(UnconnectedNote);

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
-import { connect } from "react-redux";
 import "./loginSelector.css";
 
 class LoginSelector extends Component {

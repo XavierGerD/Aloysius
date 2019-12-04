@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Block from "./Block.jsx";
 import { connect } from "react-redux";
-import * as R from "ramda";
 import "./skilltree.css";
 
 class UnconnectedSkillTree extends Component {

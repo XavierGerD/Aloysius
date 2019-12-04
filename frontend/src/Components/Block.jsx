@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./block.css";
 
@@ -36,7 +35,7 @@ class Block extends Component {
           <div className={"outer" + this.props.type} style={style}>
             <div className={"white" + this.props.type}>
               <div className={"inner" + this.props.type}>
-                <img src={this.props.image} className="innerimage" />
+                <img src={this.props.image} className="innerimage" alt="" />
               </div>
             </div>
           </div>

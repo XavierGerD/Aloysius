@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./viewer.css";
 import Page from "./Page.js";
+import Question from "./Question.js";
 import { connect } from "react-redux";
 import {
   G_MAJOR,
@@ -11,9 +12,9 @@ import {
 } from "./KeySignature.js";
 import AppText from "./AppText.js";
 
-class Viewer extends Component {
+class UnconnectedViewer extends Component {
   state = {
-    title: "Song Without Words",
+    title: this.props.lesson.title,
     fontSize: 60,
     maxBarsPerSystem: 4,
     clef: "treble",
@@ -24,7 +25,13 @@ class Viewer extends Component {
     stavesInput: ""
   };
 
+  componentDidMount = () => {
+    let root = document.getElementById("root");
+    root.style.setProperty("--music-font-size", this.state.fontSize + "px");
+  };
+
   fontInput = event => {
+    event.preventDefault();
     this.setState({ fontInput: event.target.value });
   };
 
@@ -53,15 +60,21 @@ class Viewer extends Component {
     this.setState({ maxBars });
   };
 
+  submitAnswers = () => {
+    this.props.dispatch({ type: "submit-answers" });
+  };
+
   render = () => {
-    console.log("props.lesson", this.props.lesson);
+    // console.log("props.lesson", this.props.lesson);
     return (
       <div className="viewerContainer">
-        <div className="scoreTitle">{this.state.title}</div>
+        <div className="scoreTitle">
+          {this.state.title}
+        </div>
         <div className="score">
           <Page {...this.state} />
         </div>
-        <div>
+        {/*<div>
           <form onSubmit={this.changeFont}>
             <input
               type="number"
@@ -71,13 +84,29 @@ class Viewer extends Component {
             <input type="submit" className="submitButton" value="Staff size" />
           </form>
         </div>
-        {/* <form onSubmit={this.changeSize}>
+         <form onSubmit={this.changeSize}>
             <input type="number" onChange={this.stavesInput} value={this.state.stavesInput} />
             <input type="submit" value="Staves per system" />
           </form> */}
+        <Question />
+        {this.props.permission === "user"
+          ? <div className="buttonHolder">
+              <div className="button1" onClick={this.submitAnswers}>
+                Submit!
+              </div>
+            </div>
+          : null}
       </div>
     );
   };
 }
+
+let mapStateToProps = state => {
+  return {
+    permission: state.permission
+  };
+};
+
+let Viewer = connect(mapStateToProps)(UnconnectedViewer);
 
 export default Viewer;

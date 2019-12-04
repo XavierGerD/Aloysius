@@ -101,50 +101,6 @@ let users = [
   }
 ];
 
-let lessons = [
-  {
-    id: "123",
-    body: (
-      <div className="lessonBody">
-        <h1>Pulse</h1>
-        <h2 />
-        <p>
-          The pulse is the most basic element of rhythm. It is made up of repeated, regular and short-duration stimuli which are felt as
-          points over time. Backbone of a piece's rhythm, it is the reference against which all rhythms of a piece are played. It is often
-          the aspect of rhythm that is the most easily felt by to non-musicians and beginners alike, expressed as clapping or tapping of the
-          foot.
-        </p>
-        <h2>Tempo</h2>
-        The specific pulse of a piece of music is written as a tempo, that is, a specific number of pulses per minute.
-      </div>
-    )
-  },
-  {
-    id: "124",
-    body: <div>Whoops! Nothing here!</div>
-  },
-  {
-    id: "125",
-    body: <div>Whoops! Nothing here!</div>
-  },
-  {
-    id: "126",
-    body: <div>Whoops! Nothing here!</div>
-  },
-  {
-    id: "127",
-    body: <div>Whoops! Nothing here!</div>
-  },
-  {
-    id: "128",
-    body: <div>Whoops! Nothing here!</div>
-  },
-  {
-    id: "129",
-    body: <div>Whoops! Nothing here!</div>
-  }
-];
-
 //separate
 
 let articles = [
@@ -175,4 +131,4 @@ let articles = [
   }
 ];
 
-export { modules, users, articles, lessons };
+export { modules, users, articles };
