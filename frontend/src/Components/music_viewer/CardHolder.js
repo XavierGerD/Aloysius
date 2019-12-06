@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { allowDrop } from "./dragAndDrop.js";
-import "./dragAndDrop.css";
+import { allowDrop, drop, drag } from "./dragAndDrop";
+import AnswerCard from "./AnswerCard.js";
+import { uuid } from "uuidv4";
 
-class UnconnectedMissingNote extends Component {
+class UnconnectedCardHolder extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +16,7 @@ class UnconnectedMissingNote extends Component {
     this.props.dispatch({
       type: "dragdrop-values",
       card: this.state.holderId,
-      value: this.props.expectedAnswer
+      value: "holder"
     });
   };
 
@@ -30,20 +31,33 @@ class UnconnectedMissingNote extends Component {
       card: data.id,
       holder: this.state.holderId
     });
+    // this.props.dispatch({
+    //   type: "card-values",
+    //   card: data.id,
+    //   holder: this.state.holderId
+    // });
     e.dataTransfer.clearData();
   };
 
   render = () => {
     return (
       <div
+        className="missingNote"
+        id={this.props.holderId}
         onDrop={event => this.drop(event)}
         onDragOver={event => allowDrop(event)}
-        className="missingStaffNote"
-      />
+      >
+        <AnswerCard
+          key={uuid()}
+          cardId={uuid()}
+          name={this.props.name}
+          parent={this.state.holderId}
+        />
+      </div>
     );
   };
 }
 
-let MissingNote = connect()(UnconnectedMissingNote);
+let CardHolder = connect()(UnconnectedCardHolder);
 
-export default MissingNote;
+export default CardHolder;

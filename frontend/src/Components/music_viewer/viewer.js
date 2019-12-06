@@ -60,10 +60,6 @@ class UnconnectedViewer extends Component {
     this.setState({ maxBars });
   };
 
-  submitAnswers = () => {
-    this.props.dispatch({ type: "submit-answers" });
-  };
-
   render = () => {
     // console.log("props.lesson", this.props.lesson);
     return (
@@ -89,13 +85,6 @@ class UnconnectedViewer extends Component {
             <input type="submit" value="Staves per system" />
           </form> */}
         <Question />
-        {this.props.permission === "user"
-          ? <div className="buttonHolder">
-              <div className="button1" onClick={this.submitAnswers}>
-                Submit!
-              </div>
-            </div>
-          : null}
       </div>
     );
   };

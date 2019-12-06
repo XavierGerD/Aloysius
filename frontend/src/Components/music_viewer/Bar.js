@@ -45,7 +45,7 @@ class UnconnectedBar extends Component {
     }
     let beat = [];
     let beatCounter = 0;
-    let missingNotePosition = 1;
+    let missingNotePosition = 0;
     return (
       <React.Fragment>
         <div className="bar">
@@ -82,20 +82,22 @@ class UnconnectedBar extends Component {
               );
             }
             if (char.type === "missing") {
-              let payloadObject = {};
-              payloadObject.type = char.code;
-              payloadObject.rightAnswer = false;
-              payloadObject.barNumber = this.state.barNumber;
-              payloadObject.position = missingNotePosition;
-              this.props.dispatch({
-                type: "total-answers",
-                payload: payloadObject
-              });
+              // let payloadObject = {};
+              // payloadObject.type = char.code;
+              // payloadObject.rightAnswer = false;
+              // payloadObject.barNumber = this.state.barNumber;
+              // payloadObject.position = missingNotePosition;
+              // this.props.dispatch({
+              //   type: "total-answers",
+              //   payload: payloadObject
+              // });
               beat.push(
                 <MissingNote
                   expectedAnswer={char.code}
                   position={missingNotePosition}
                   barNumber={this.state.barNumber}
+                  key={uuid()}
+                  holderId={uuid()}
                 />
               );
               missingNotePosition += 1;

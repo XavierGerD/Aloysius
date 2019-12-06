@@ -225,6 +225,7 @@ class UnconnectedChord extends Component {
               className={flagClass}
               flag={flag}
               pitch={i}
+              key={uuid()}
             />
           );
         })}

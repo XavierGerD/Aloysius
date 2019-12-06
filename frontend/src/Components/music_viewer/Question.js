@@ -1,63 +1,52 @@
 import React, { Component } from "react";
-import { allowDrop, drop, drag } from "./dragAndDrop";
-// import { stem, noteheadCodes } from "./UnicodeAssignment.js";
+import { connect } from "react-redux";
+import CardHolder from "./CardHolder.js";
+import { uuid } from "uuidv4";
 
-class Question extends Component {
-  state = {
-    blackNoteHead: "\uE0A4",
-    wholeNoteHead: "\uE0A2",
-    halfNoteHead: "\uE0A3",
-    stem: "\uE210"
+class UnconnectedQuestion extends Component {
+  submitAnswers = () => {
+    this.props.dispatch({ type: "submit-answers" });
   };
-
   render = () => {
     return (
-      <div className="answerBox">
-        <div
-          className="missingNote"
-          onDrop={event => drop(event)}
-          onDragOver={event => allowDrop(event)}
-        >
-          <input
-            type="submit"
-            id="quarter"
-            draggable="true"
-            onDragStart={event => drag(event)}
-            className="answerButton"
-            value={this.state.blackNoteHead + this.state.stem}
+      <div>
+        <div className="answerBox">
+          <CardHolder
+            key={uuid()}
+            holderId={uuid()}
+            cardId={uuid()}
+            name="quarter"
           />
-        </div>
-        <div
-          className="missingNote"
-          onDrop={event => drop(event)}
-          onDragOver={event => allowDrop(event)}
-        >
-          <input
-            type="submit"
-            id="whole"
-            draggable="true"
-            onDragStart={event => drag(event)}
-            className="answerButton"
-            value={this.state.wholeNoteHead}
+          <CardHolder
+            key={uuid()}
+            holderId={uuid()}
+            cardId={uuid()}
+            name="half"
           />
-        </div>
-        <div
-          className="missingNote"
-          onDrop={event => drop(event)}
-          onDragOver={event => allowDrop(event)}
-        >
-          <input
-            type="submit"
-            id="half"
-            draggable="true"
-            onDragStart={event => drag(event)}
-            className="answerButton"
-            value={this.state.halfNoteHead + this.state.stem}
+          <CardHolder
+            key={uuid()}
+            holderId={uuid()}
+            cardId={uuid()}
+            name="whole"
           />
+          {this.props.permission === "user"
+            ? <div className="buttonHolder">
+                <div className="button1" onClick={this.submitAnswers}>
+                  Submit!
+                </div>
+              </div>
+            : null}
         </div>
       </div>
     );
   };
 }
+
+let mapStateToProps = state => {
+  return {
+    permission: state.permission
+  };
+};
+let Question = connect(mapStateToProps)(UnconnectedQuestion);
 
 export default Question;

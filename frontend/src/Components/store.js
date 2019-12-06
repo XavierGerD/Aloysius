@@ -29,40 +29,40 @@ let reducer = (state, action) => {
       return { ...state, currentBlock: newBlock };
     case "exerciseComplete":
       return { ...state, currentBlockComplete: true };
-    case "total-answers":
-      let expectedAnswers = state.expectedAnswers.concat([action.payload]);
-      console.log("expected answers:", expectedAnswers);
-      return { ...state, expectedAnswers };
-    case "add-answer":
-      let expectedAnswersCopy = R.clone(state.expectedAnswers);
-      console.log("expected answers", expectedAnswersCopy);
-      expectedAnswersCopy.forEach((answer, i) => {
-        console.log("answer", answer);
-        console.log("payload", action.expectedAnswer);
-        if (
-          answer.type === action.expectedAnswer &&
-          answer.position === action.position &&
-          answer.barNumber === action.barNumber
-        ) {
-          return (answer.rightAnswer = !answer.rightAnswer);
-        }
-      });
-      return { ...state, expectedAnswers: expectedAnswersCopy };
+    case "dragdrop-values":
+      let dragDropValues = R.clone(state.dragDropValues);
+      dragDropValues[action.card] = action.value;
+      console.log("dragdrop values", dragDropValues);
+      return { ...state, dragDropValues };
+    case "card-positions":
+      let cardPositions = R.clone(state.cardPositions);
+      cardPositions[action.card] = action.holder;
+      console.log("current card positions:", cardPositions);
+      return { ...state, cardPositions };
+    case "move-card":
+      let newCardPositions = R.clone(state.cardPositions);
+      newCardPositions[action.card] = action.holder;
+      console.log("new card positions", newCardPositions);
+      return { ...state, cardPositions: newCardPositions };
     case "submit-answers":
       let isExerciseCompleted = true;
-      state.expectedAnswers.forEach(answer => {
-        if (!answer.rightAnswer) {
+      let keys = Object.keys(state.cardPositions);
+      keys.forEach((cardPosition, i) => {
+        if (
+          state.dragDropValues[keys[i]] === state.dragDropValues[cardPosition]
+        ) {
+          console.log("first value", state.dragDropValues[keys[i]]);
+          console.log("second value", state.dragDropValues[cardPosition]);
           isExerciseCompleted = false;
         }
       });
-      if (isExerciseCompleted) {
-        console.log("lesson complete");
-        return {
-          ...state,
-          answerInput: [],
-          expectedAnswers: []
-        };
-      } else return { ...state };
+      console.log("is exercise done?", isExerciseCompleted);
+      return {
+        ...state,
+        cardPositions: {},
+        dragDropValues: {},
+        currentBlockComplete: true
+      };
     default:
       return state;
   }
@@ -75,12 +75,13 @@ const store = createStore(
     user: {},
     articles,
     currentBlock: [],
-    currentBlockComplete: false,
     currentTopic: undefined,
     loggedIn: false,
     permission: "user",
-    answerInput: [],
-    expectedAnswers: []
+    currentBlockComplete: false,
+    rightAnswer: false,
+    cardPositions: {},
+    dragDropValues: {}
   },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
