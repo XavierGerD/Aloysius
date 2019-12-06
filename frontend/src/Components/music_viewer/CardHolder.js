@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { allowDrop, drop, drag } from "./dragAndDrop";
 import AnswerCard from "./AnswerCard.js";
 import { uuid } from "uuidv4";
 
@@ -12,12 +11,8 @@ class UnconnectedCardHolder extends Component {
     };
   }
 
-  componentDidMount = () => {
-    this.props.dispatch({
-      type: "dragdrop-values",
-      card: this.state.holderId,
-      value: "holder"
-    });
+  allowDrop = e => {
+    e.preventDefault();
   };
 
   drop = (e, elem) => {
@@ -27,15 +22,9 @@ class UnconnectedCardHolder extends Component {
     let toAppend = document.getElementById(data.id);
     if (toAppend !== e.target) e.target.appendChild(toAppend);
     this.props.dispatch({
-      type: "move-card",
-      card: data.id,
-      holder: this.state.holderId
+      type: "remove-card",
+      card: data.id
     });
-    // this.props.dispatch({
-    //   type: "card-values",
-    //   card: data.id,
-    //   holder: this.state.holderId
-    // });
     e.dataTransfer.clearData();
   };
 
@@ -45,14 +34,9 @@ class UnconnectedCardHolder extends Component {
         className="missingNote"
         id={this.props.holderId}
         onDrop={event => this.drop(event)}
-        onDragOver={event => allowDrop(event)}
+        onDragOver={event => this.allowDrop(event)}
       >
-        <AnswerCard
-          key={uuid()}
-          cardId={uuid()}
-          name={this.props.name}
-          parent={this.state.holderId}
-        />
+        <AnswerCard key={uuid()} cardId={uuid()} name={this.props.name} />
       </div>
     );
   };

@@ -36,12 +36,17 @@ let reducer = (state, action) => {
       return { ...state, dragDropValues };
     case "card-positions":
       let cardPositions = R.clone(state.cardPositions);
-      cardPositions[action.card] = action.holder;
+      cardPositions[action.holder] = action.card;
       console.log("current card positions:", cardPositions);
       return { ...state, cardPositions };
-    case "move-card":
+    case "remove-card":
       let newCardPositions = R.clone(state.cardPositions);
-      newCardPositions[action.card] = action.holder;
+      let cardKeys = Object.keys(newCardPositions);
+      cardKeys.forEach(cardPosition => {
+        if (newCardPositions[cardPosition] === action.card) {
+          newCardPositions[cardPosition] = undefined;
+        }
+      });
       console.log("new card positions", newCardPositions);
       return { ...state, cardPositions: newCardPositions };
     case "submit-answers":
@@ -49,20 +54,24 @@ let reducer = (state, action) => {
       let keys = Object.keys(state.cardPositions);
       keys.forEach((cardPosition, i) => {
         if (
-          state.dragDropValues[keys[i]] === state.dragDropValues[cardPosition]
+          state.dragDropValues[state.cardPositions[cardPosition]] !==
+          state.dragDropValues[cardPosition]
         ) {
-          console.log("first value", state.dragDropValues[keys[i]]);
-          console.log("second value", state.dragDropValues[cardPosition]);
           isExerciseCompleted = false;
         }
       });
       console.log("is exercise done?", isExerciseCompleted);
-      return {
-        ...state,
-        cardPositions: {},
-        dragDropValues: {},
-        currentBlockComplete: true
-      };
+      if (isExerciseCompleted) {
+        return {
+          ...state,
+          cardPositions: {},
+          dragDropValues: {},
+          answerSubmitted: true,
+          rightAnswer: true
+        };
+      } else {
+        return { ...state, answerSubmitted: true };
+      }
     default:
       return state;
   }
@@ -79,6 +88,7 @@ const store = createStore(
     loggedIn: false,
     permission: "user",
     currentBlockComplete: false,
+    answerSubmitted: false,
     rightAnswer: false,
     cardPositions: {},
     dragDropValues: {}

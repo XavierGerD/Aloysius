@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./viewer.css";
 import Page from "./Page.js";
 import Question from "./Question.js";
+import SubmitControls from "./SubmitControls.js";
 import { connect } from "react-redux";
 import {
   G_MAJOR,
@@ -85,6 +86,7 @@ class UnconnectedViewer extends Component {
             <input type="submit" value="Staves per system" />
           </form> */}
         <Question />
+        <SubmitControls />
       </div>
     );
   };

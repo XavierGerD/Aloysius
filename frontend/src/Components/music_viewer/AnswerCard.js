@@ -7,17 +7,11 @@ class UnconnectedAnswerCard extends Component {
     super(props);
     this.state = {
       cardId: this.props.cardId,
-      name: this.props.name,
-      parent: this.props.parent
+      name: this.props.name
     };
   }
 
   componentDidMount = () => {
-    this.props.dispatch({
-      type: "card-positions",
-      card: this.state.cardId,
-      holder: this.state.parent
-    });
     this.props.dispatch({
       type: "dragdrop-values",
       card: this.state.cardId,
