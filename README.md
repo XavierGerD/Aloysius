@@ -1,3 +1,3 @@
 # Aloysius
 
-After `npm install`, run `npm start` in /Aloysius directory.
+After `npm install` in /Aloysius, /Aloysius/frontend and /Aloysius/backend, run `npm start` in /Aloysius directory.
