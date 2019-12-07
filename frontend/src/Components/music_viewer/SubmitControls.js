@@ -2,9 +2,22 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class UnconnectedSubmitControls extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lessonId: this.props.lessonId
+    };
+  }
   submitAnswers = e => {
     e.preventDefault();
     this.props.dispatch({ type: "submit-answers" });
+  };
+
+  nextExercise = () => {
+    this.props.dispatch({
+      type: "next-exercise",
+      lessonId: this.state.lessonId
+    });
   };
 
   render = () => {
@@ -19,12 +32,15 @@ class UnconnectedSubmitControls extends Component {
           : null}
         <div style={{ marginTop: "50px" }}>
           {this.props.answerSubmitted && !this.props.rightAnswer
-            ? <div style={{ position: "relative" }}>Wrong answer!</div>
+            ? <div>Wrong answer!</div>
             : null}
+        </div>
+        <div>
           {this.props.answerSubmitted && this.props.rightAnswer
-            ? <div style={{ position: "relative" }}>
-                <div>Right answer!</div>
-                <div onClick={this.nextExercise}>Next exercise</div>
+            ? <div className="buttonHolder">
+                <div className="button2" onClick={this.nextExercise}>
+                  Next exercise
+                </div>
               </div>
             : null}
         </div>

@@ -97,6 +97,7 @@ let updateProgress = (username, blockID, res) => {
   let sql = "SELECT progress FROM users WHERE username LIKE ?";
   connection.query(sql, username, (err, row) => {
     if (err) throw err;
+    if (row.length === 0) return res.send(JSON.stringify({ success: false }));
     let progress = JSON.parse(row[0].progress);
     if (progress[blockID] === undefined) {
       progress[blockID] = 1;

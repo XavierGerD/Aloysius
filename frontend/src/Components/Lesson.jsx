@@ -33,7 +33,7 @@ class UnconnectedLesson extends Component {
     let parsed = JSON.parse(responseBody);
     if (parsed.success) {
       this.props.dispatch({
-        type: "lessonComplete",
+        type: "lesson-complete",
         payload: parsed.progress
       });
     }
@@ -61,8 +61,15 @@ class UnconnectedLesson extends Component {
               </div>
             );
           } else if (chunk.heading === "score") {
+            // console.log("redering viewer");
             let currentExercise = Math.floor(Math.random() * chunk.text.length);
-            return <Viewer key={uuid()} lesson={chunk.text[currentExercise]} />;
+            return (
+              <Viewer
+                key={uuid()}
+                lessonId={currentExercise}
+                lesson={chunk.text[currentExercise]}
+              />
+            );
           }
         })}
 

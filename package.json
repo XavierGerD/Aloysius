@@ -1,0 +1,22 @@
+{
+  "name": "aloysius",
+  "version": "1.0.0",
+  "description": "Aloysius",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd frontend && npm start",
+    "server": "cd backend && nodemon server.js",
+    "start": "concurrently \"npm run client\" \"npm run server\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierGerD/Aloysius.git"
+  },
+  "author": "XGD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XavierGerD/Aloysius/issues"
+  },
+  "homepage": "https://github.com/XavierGerD/Aloysius#readme"
+}
