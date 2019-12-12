@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd frontend && npm start",
     "server": "cd backend && nodemon server.js",
-    "start": "concurrently \"npm run client\" \"npm run server\" "
+    "start": "concurrently \"npm run client\" \"npm run server\" ",
+    "postinstall": "(cd frontend && npm install) && (cd ../backend && npm install)"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/XavierGerD/Aloysius/issues"
   },
-  "homepage": "https://github.com/XavierGerD/Aloysius#readme"
+  "homepage": "https://github.com/XavierGerD/Aloysius#readme",
+  "dependencies": {
+    "concurrently": "^5.0.1"
+  }
 }

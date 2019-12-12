@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { uuid } from "uuidv4";
 import { barlines } from "./UnicodeAssignment.js";
 import MissingNote from "./MissingNote.js";
-
 import Chord from "./Chord.js";
 import Rest from "./Rest.js";
 import "./Bar.css";
@@ -82,15 +81,6 @@ class UnconnectedBar extends Component {
               );
             }
             if (char.type === "missing") {
-              // let payloadObject = {};
-              // payloadObject.type = char.code;
-              // payloadObject.rightAnswer = false;
-              // payloadObject.barNumber = this.state.barNumber;
-              // payloadObject.position = missingNotePosition;
-              // this.props.dispatch({
-              //   type: "total-answers",
-              //   payload: payloadObject
-              // });
               beat.push(
                 <MissingNote
                   expectedAnswer={char.code}
@@ -101,6 +91,7 @@ class UnconnectedBar extends Component {
                 />
               );
               missingNotePosition += 1;
+              this.props.dispatch({ type: "missing-note", payload: char.code });
             }
 
             switch (char.code) {
@@ -154,4 +145,5 @@ class UnconnectedBar extends Component {
 }
 
 let Bar = connect()(UnconnectedBar);
+
 export default Bar;

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import CardHolder from "./CardHolder.js";
 import { uuid } from "uuidv4";
 
-class Question extends Component {
+class UnconnectedQuestion extends Component {
   nextExercise = () => {
     console.log("Next one!");
   };
@@ -12,28 +12,28 @@ class Question extends Component {
     return (
       <div>
         <div className="answerBox">
-          <CardHolder
-            key={uuid()}
-            holderId={uuid()}
-            cardId={uuid()}
-            name="quarter"
-          />
-          <CardHolder
-            key={uuid()}
-            holderId={uuid()}
-            cardId={uuid()}
-            name="half"
-          />
-          <CardHolder
-            key={uuid()}
-            holderId={uuid()}
-            cardId={uuid()}
-            name="whole"
-          />
+          {this.props.cards.map(card => {
+            return (
+              <CardHolder
+                key={uuid()}
+                holderId={uuid()}
+                cardId={uuid()}
+                name={card}
+              />
+            );
+          })}
         </div>
       </div>
     );
   };
 }
+
+let mapStateToProps = state => {
+  return {
+    cards: state.missingNoteCards
+  };
+};
+
+let Question = connect(mapStateToProps)(UnconnectedQuestion);
 
 export default Question;

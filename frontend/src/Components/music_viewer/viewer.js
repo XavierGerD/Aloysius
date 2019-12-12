@@ -3,6 +3,7 @@ import "./viewer.css";
 import Page from "./Page.js";
 import Question from "./Question.js";
 import SubmitControls from "./SubmitControls.js";
+import ProgressBar from "./ProgressBar.js";
 import { connect } from "react-redux";
 import {
   G_MAJOR,
@@ -30,6 +31,7 @@ class UnconnectedViewer extends Component {
   componentDidMount = () => {
     let root = document.getElementById("root");
     root.style.setProperty("--music-font-size", this.state.fontSize + "px");
+    // this.props.dispatch({ type: "start-exercise" });
   };
 
   fontInput = event => {
@@ -89,6 +91,7 @@ class UnconnectedViewer extends Component {
           </form> */}
         <Question />
         <SubmitControls lessonId={this.props.lessonId} />
+        <ProgressBar />
       </div>
     );
   };

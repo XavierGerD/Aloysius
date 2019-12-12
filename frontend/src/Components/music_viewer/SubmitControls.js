@@ -30,7 +30,7 @@ class UnconnectedSubmitControls extends Component {
               </div>
             </div>
           : null}
-        <div style={{ marginTop: "50px" }}>
+        <div style={{ marginTop: "30px" }}>
           {this.props.answerSubmitted && !this.props.rightAnswer
             ? <div>Wrong answer!</div>
             : null}

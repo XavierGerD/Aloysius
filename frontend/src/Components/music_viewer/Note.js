@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { uuid } from "uuidv4";
 import "./Note.css";
-import { stem, noteheadCodes } from "./UnicodeAssignment.js";
+import { stem, noteheadCodes, flagCodes } from "./UnicodeAssignment.js";
 import Beam from "./Beam.js";
 import * as R from "ramda";
 
@@ -47,6 +47,7 @@ class UnconnectedNote extends Component {
   };
 
   render = () => {
+    console.log("flag class", this.props.flagClass);
     return (
       <div key={uuid()} className="noteBox" style={this.props.style}>
         {this.props.ledgerLines}
@@ -59,17 +60,17 @@ class UnconnectedNote extends Component {
         </div>
         <div className={this.props.stemDirection}>
           {this.props.code === "whole" ? null : stem}
-          <Beam
+          {/* <Beam
             x1={0}
             x2={40}
             y={0}
             fontSize={this.props.fontSize}
             code={this.props.code}
             className={this.props.flagClass}
-          />
-          {/* <div className={flagClass}>
-                {flag}
-              </div> */}
+          /> */}
+          <div className={this.props.flagClass}>
+            {this.props.flag}
+          </div>
         </div>
       </div>
     );

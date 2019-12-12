@@ -164,10 +164,10 @@ class UnconnectedChord extends Component {
           if (this.props.char.code === "eighth") {
             if (stemDirection === "upStem") {
               if (offset === farthestUp) {
-                flag = beamCodes.eighth;
-                flagClass = "beamUp";
-                // flag = flagCodes.eighth.up;
-                // flagClass = "flagUp";
+                // flag = beamCodes.eighth;
+                // flagClass = "beamUp";
+                flag = flagCodes.eighth.up;
+                flagClass = "flagUp";
               }
             } else {
               if (offset === farthestDown) {
@@ -180,10 +180,10 @@ class UnconnectedChord extends Component {
           if (this.props.char.code === "sixteenth") {
             if (stemDirection === "upStem") {
               if (offset === farthestUp) {
-                flag = beamCodes.sixteenth;
-                flagClass = "beamUp";
-                // flag = flagCodes.sixteenth.up;
-                // flagClass = "flagUp";
+                // flag = beamCodes.sixteenth;
+                // flagClass = "beamUp";
+                flag = flagCodes.sixteenth.up;
+                flagClass = "flagUp";
               }
             } else {
               if (offset === farthestDown) {
@@ -222,7 +222,7 @@ class UnconnectedChord extends Component {
               x2={40}
               y={0}
               fontSize={this.props.fontSize}
-              className={flagClass}
+              flagClass={flagClass}
               flag={flag}
               pitch={i}
               key={uuid()}

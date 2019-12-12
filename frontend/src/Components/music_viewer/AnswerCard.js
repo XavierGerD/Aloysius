@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { stem, noteheadCodes } from "./UnicodeAssignment.js";
+import { stem, noteheadCodes, flagCodes } from "./UnicodeAssignment.js";
 import { connect } from "react-redux";
+import "./AnswerCard.css";
 
 class UnconnectedAnswerCard extends Component {
   constructor(props) {
@@ -26,20 +27,32 @@ class UnconnectedAnswerCard extends Component {
   };
 
   render = () => {
+    let notehead;
+    switch (this.props.name) {
+      case "whole":
+        notehead = noteheadCodes[this.state.name];
+        break;
+      default:
+        notehead = noteheadCodes[this.state.name] + stem;
+        break;
+    }
     return (
-      <input
-        type="submit"
+      <div
         id={this.state.cardId}
         name={this.state.name}
         draggable="true"
         onDragStart={event => this.drag(event)}
         className="answerButton"
-        value={
-          this.props.name === "whole"
-            ? noteheadCodes[this.state.name]
-            : noteheadCodes[this.state.name] + stem
-        }
-      />
+      >
+        {notehead}
+        {this.props.name === "eighth"
+          ? <div className="cardFlag">
+              <div>
+                {flagCodes.eighth.up}
+              </div>
+            </div>
+          : null}
+      </div>
     );
   };
 }
