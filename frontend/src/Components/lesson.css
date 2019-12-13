@@ -1,6 +1,8 @@
 .lessonBody {
   width: 600px;
   font-family: "Raleway", sans-serif;
+  line-height: 40px;
+  font-size: 20px;
 }
 
 .buttonHolder {

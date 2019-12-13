@@ -23,7 +23,7 @@ class UnconnectedSubmitControls extends Component {
   render = () => {
     return (
       <div>
-        {this.props.permission === "user"
+        {this.props.permission === "user" && !this.props.rightAnswer
           ? <div className="buttonHolder">
               <div className="button1" onClick={this.submitAnswers}>
                 Submit!

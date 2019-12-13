@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import "./ProgressBar.css";
 
 class UnconnectedProgressBar extends Component {
   render = () => {
@@ -13,17 +14,14 @@ class UnconnectedProgressBar extends Component {
     } else if (currentProgress >= 100) {
       color = "#00de4f";
     }
-    // console.log("max progress", maxProgress);
-    // console.log("current progress", currentProgress);
+
     let style = {
-      background: `linear-gradient(to right, ${color} 0%, ${color} ${currentProgress +
-        "%"}, #d1d1d1 ${currentProgress + "%"}, #d1d1d1 100%)`,
-      width: "600px",
-      height: "10px",
-      borderRadius: "5px"
+      backgroundColor: color,
+      width: 1200 / this.props.maxProgress * this.props.currentProgress + "px"
     };
+
     return (
-      <div>
+      <div className="progressContainer">
         <div className="progressBar" style={style} />
       </div>
     );

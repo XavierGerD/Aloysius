@@ -13,7 +13,9 @@ class Block extends Component {
     let maxProgress = 100 / this.props.maxProgress;
     let currentProgress = maxProgress * this.props.progress;
     let color;
-    if (currentProgress < 45) {
+    if (currentProgress === 0) {
+      color = "#d1d1d1";
+    } else if (currentProgress > 0 && currentProgress < 45) {
       color = "#ff9c00";
     } else if (currentProgress < 100 && currentProgress >= 45) {
       color = "#ffea1b";
@@ -21,8 +23,8 @@ class Block extends Component {
       color = "#00de4f";
     }
     let style = {
-      background: `linear-gradient(to top, ${color} 0%, ${color} ${currentProgress +
-        "%"}, #d1d1d1 ${currentProgress + "%"}, #d1d1d1 100%)`
+      backgroundColor: color,
+      width: 105 / this.props.maxProgress * this.props.currentProgress + "px"
     };
     return (
       <div className="icon">
@@ -32,10 +34,12 @@ class Block extends Component {
             state: { id: this.props.id, topic: this.props.topic }
           }}
         >
-          <div className={"outer" + this.props.type} style={style}>
-            <div className={"white" + this.props.type}>
-              <div className={"inner" + this.props.type}>
-                <img src={this.props.image} className="innerimage" alt="" />
+          <div className={"outer" + this.props.type}>
+            <div className="innerGradient" style={style}>
+              <div className={"white" + this.props.type}>
+                <div className={"inner" + this.props.type}>
+                  <img src={this.props.image} className="innerimage" alt="" />
+                </div>
               </div>
             </div>
           </div>

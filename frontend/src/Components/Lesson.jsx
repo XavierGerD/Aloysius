@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./lesson.css";
 import Viewer from "./music_viewer/viewer";
+import Animation1 from "./Animation1.jsx";
 
 class UnconnectedLesson extends Component {
   componentWillUnmount = () => {
@@ -24,7 +25,9 @@ class UnconnectedLesson extends Component {
     let parsed = JSON.parse(responseBody);
     if (parsed.success) {
       this.props.dispatch({ type: "blocks", payload: parsed.rows });
+      console.log("this.props.blockType", this.props.blockType);
       if (this.props.blockType === "lesson") {
+        console.log("Rerendering due to lesson");
         this.props.dispatch({ type: "complete-block" });
       }
     }
@@ -49,14 +52,11 @@ class UnconnectedLesson extends Component {
   };
 
   render = () => {
-    if (this.props.lesson[0]) {
-      // console.log("lesson", this.props.lesson[0].type);
-    }
     return (
       <div>
         {this.props.lesson.map((chunk, i) => {
           // console.log("chunk", chunk.heading);
-          if (chunk.heading !== "score") {
+          if (chunk.type === "text") {
             return (
               <div key={uuid()}>
                 <div className="lessonHeader">
@@ -69,8 +69,9 @@ class UnconnectedLesson extends Component {
                 </div>
               </div>
             );
-          } else if (chunk.heading === "score") {
-            // console.log("redering viewer");
+          }
+          if (chunk.type === "score") {
+            console.log("redering viewer");
             // this.props.dispatch({ type: "start-exercise" });
             let currentExercise = Math.floor(Math.random() * chunk.text.length);
             return (
@@ -80,6 +81,9 @@ class UnconnectedLesson extends Component {
                 lesson={chunk.text[currentExercise]}
               />
             );
+          }
+          if (chunk.type === "animation1") {
+            return <Animation1 />;
           }
         })}
 

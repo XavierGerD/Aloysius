@@ -60,7 +60,7 @@ class UnconnectedApp extends Component {
         <div className="homePageSpacer" />
         <div className="homePageSection">
           <div className="homePagePictureContainer">
-            <img src="/musky.jpg" alt="" />
+            <img src="/insertrhythm.png" className="homePageImage" alt="" />
           </div>
           <div>
             <div>
@@ -90,7 +90,7 @@ class UnconnectedApp extends Component {
             </div>
           </div>
           <div className="homePagePictureContainer">
-            <img src="/musky.jpg" alt="" />
+            <img src="/teacherdrop.png" className="homePageImage" alt="" />
           </div>
         </div>
       </div>

@@ -31,7 +31,6 @@ class UnconnectedViewer extends Component {
   componentDidMount = () => {
     let root = document.getElementById("root");
     root.style.setProperty("--music-font-size", this.state.fontSize + "px");
-    // this.props.dispatch({ type: "start-exercise" });
   };
 
   fontInput = event => {

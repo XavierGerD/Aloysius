@@ -4,9 +4,8 @@
   border-radius: 50%;
   overflow: hidden;
   border-image: initial;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
+  background-color: #d1d1d1;
 }
 
 .outerlesson:hover {
@@ -54,6 +53,7 @@
   width: 85px;
   border-radius: 50%;
   overflow: hidden;
+  background-color: #0072bf;
 }
 
 .innerexercise {
@@ -61,6 +61,16 @@
   width: 85px;
   border-radius: 22%;
   overflow: hidden;
+  background-color: #c431b1;
+}
+
+.innerGradient {
+  transition: 2.5s ease-out;
+  height: 105px;
+  width: 105px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .innerimage {

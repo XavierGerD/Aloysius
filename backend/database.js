@@ -35,9 +35,15 @@ let getTopics = (topic, res) => {
 };
 
 let getBlock = (id, res) => {
-  let sql = `SELECT * FROM (content INNER JOIN block_contents ON content.content_id = block_contents.content_id) INNER JOIN block ON block_contents.content_id = block.block_id WHERE block_contents.block_id = ?
+  let sql = `SELECT * FROM content 
+    INNER JOIN block_contents ON content.content_id = block_contents.content_id 
+    WHERE block_contents.block_id = ?
+
     UNION 
-    SELECT * FROM (viewer_data INNER JOIN block_viewer_data ON viewer_data.content_id = block_viewer_data.viewer_content_id) INNER JOIN block ON block_viewer_data.viewer_content_id = block.block_id WHERE block_viewer_data.block_id = ?;`;
+
+    SELECT * FROM viewer_data 
+    INNER JOIN block_viewer_data ON viewer_data.content_id = block_viewer_data.viewer_content_id 
+   WHERE block_viewer_data.block_id = ?;`;
   let filter = [id, id];
   connection.query(sql, filter, (err, rows) => {
     if (err) throw err;
