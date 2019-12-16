@@ -38,7 +38,11 @@ class Block extends Component {
             <div className="innerGradient" style={style}>
               <div className={"white" + this.props.type}>
                 <div className={"inner" + this.props.type}>
-                  <img src={this.props.image} className="innerimage" alt="" />
+                  <img
+                    src={"/Icons/" + this.props.image}
+                    className="innerimage"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>

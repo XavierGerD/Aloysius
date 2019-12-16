@@ -91,11 +91,11 @@ class UnconnectedLesson extends Component {
           to={"/skilltree/" + this.props.topic}
           onClick={this.lessonComplete}
         >
-          {this.props.completed
-            ? <div className="buttonHolder">
-                <div className="button1">GOT IT!</div>
-              </div>
-            : null}
+          {/* {this.props.completed ?  */}
+          <div className="buttonHolder">
+            <div className="button1">GOT IT!</div>
+          </div>
+          {/* : null} */}
         </Link>
       </div>
     );

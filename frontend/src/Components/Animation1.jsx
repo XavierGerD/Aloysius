@@ -7,6 +7,7 @@ let x = 100;
 let y = 50;
 let speed = 4;
 let acceleration = 0.5;
+let start = false;
 
 class Animation1 extends Component {
   constructor() {
@@ -23,8 +24,10 @@ class Animation1 extends Component {
     this.state.ctx = this.state.canvas.getContext("2d");
     this.state.x = this.state.canvas.width / 2;
     this.state.y = this.state.canvas.height - 30;
+    this.state.music = new Audio();
+    this.state.music.src = "/";
     this.bounce();
-    this.moveBall();
+    // this.moveBall();
   };
 
   componentWillUnmount = () => {
@@ -52,13 +55,24 @@ class Animation1 extends Component {
     window.requestAnimationFrame(this.bounce);
   };
 
-  moveBall = () => {
-    y += speed;
-    speed += acceleration;
-    if (y >= height - ballSize) {
-      speed = (speed - acceleration) * -1;
+  clickHandler = () => {
+    if (!start) {
+      start = true;
+      this.moveBall();
+    } else if (start) {
+      start = false;
     }
-    window.requestAnimationFrame(this.moveBall);
+  };
+
+  moveBall = () => {
+    if (start) {
+      y += speed;
+      speed += acceleration;
+      if (y >= height - ballSize) {
+        speed = (speed - acceleration) * -1;
+      }
+      window.requestAnimationFrame(this.moveBall);
+    }
   };
 
   render = () => {
@@ -72,6 +86,7 @@ class Animation1 extends Component {
           height={height}
           id="canvas"
           ref={this.state.canvasRef}
+          onClick={this.clickHandler}
         />
       </div>
     );
