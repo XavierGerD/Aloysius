@@ -9,7 +9,6 @@ let upload = multer({
   dest: __dirname + "/uploads"
 });
 
-app.use("/", express.static("build"));
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.post("/post-topic", upload.none(), (req, res) => {
