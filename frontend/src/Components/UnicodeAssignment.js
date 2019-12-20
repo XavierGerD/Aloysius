@@ -65,6 +65,19 @@ let completeNotes = {
   eighthBeam: "\uE1F3"
 };
 
+let tupletBracketCodes = {
+  left: "\uE201",
+  right: "\uE203"
+};
+
+let tupletCodes = {
+  three: "\uE883",
+  four: "\uE884",
+  five: "\uE885",
+  six: "\uE886",
+  seven: "\uE887"
+};
+
 export {
   staffSegment,
   ledgerLine,
@@ -80,5 +93,7 @@ export {
   flagCodes,
   beamCodes,
   completeNotes,
-  singleStaff
+  singleStaff,
+  tupletBracketCodes,
+  tupletCodes
 };
