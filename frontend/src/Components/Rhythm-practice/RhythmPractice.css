@@ -1,0 +1,197 @@
+@font-face {
+  font-family: "Bravura";
+  src: url("/fonts/woff/Bravura.woff") format("woff"),
+    url("/fonts/svg/Bravura.svg") format("svg"),
+    url("/fonts/otf/Bravura.otf") format("otf");
+}
+
+.mainText {
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#start {
+  width: 200px;
+  height: 100px;
+  font-family: "Raleway", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #096848;
+  background-color: #10bc83;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 3px 3px #096848;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+#stop {
+  width: 200px;
+  height: 100px;
+  font-family: "Raleway", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #631d19;
+  background-color: #f0483e;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 3px 3px #631d19;
+  margin-bottom: 5px;
+}
+
+.rhythmContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+}
+
+.controlContainer {
+  font-family: "Raleway", sans-serif;
+  padding-top: 10px;
+}
+
+.rp-inputBox {
+  border-radius: 5px;
+  font-family: "Raleway", sans-serif;
+  margin-left: 7px;
+  width: 40px;
+}
+
+.practiceMain {
+  padding-top: 100px;
+  position: relative;
+  line-height: 0px;
+  width: 400px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  /* margin-left: -200px; */
+}
+
+.rp-controlpanel {
+  display: flex;
+  height: 150px;
+}
+
+.rp-panelsection {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.rp-controlitem {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  flex: auto;
+}
+
+.timeSigButton {
+  margin-right: 15px;
+}
+
+.rp-bars {
+  display: flex;
+  justify-content: space-between;
+  /* position: absolute; */
+}
+
+.rp-singlestaff {
+  font-family: "Bravura";
+  font-size: 60px;
+  position: absolute;
+  padding-top: 30px;
+  /* margin-left: 37.5px; */
+  /* transform-origin: center; */
+  transform: scaleX(24);
+}
+
+.rp-bar {
+  font-family: "Bravura";
+  font-size: 60px;
+  display: flex;
+  position: relative;
+}
+
+.rp-barcontainer {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.rp-note {
+  font-family: "Bravura";
+  font-size: 60px;
+  display: flex;
+}
+
+.rp-eighthbeam {
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+.rp-eighthflag {
+  margin-top: -52.5px;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+
+.rp-rest {
+  margin-left: 17px;
+  margin-right: 17px;
+}
+
+.rp-barline {
+  margin: 30px 15px 0px 15px;
+}
+
+.rp-timesig {
+  display: grid;
+  margin-top: -22.5px;
+  margin-right: 15px;
+  margin-bottom: -30px;
+}
+
+.rp-tupletbrackets {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: absolute;
+}
+
+.rp-bracketcontainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.rp-tupletspacer {
+  width: 20px;
+}
+
+.rp-tupletvalue {
+  margin-top: -60px;
+}
+
+.rp-spacer {
+  width: 15px;
+}
+
+.rp-instructions {
+  width: 800px;
+  word-wrap: break-word;
+  margin-top: 30px;
+}
+
+.rp-quicktip {
+  background-color: white;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  max-width: 300px;
+}
